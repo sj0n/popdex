@@ -10,14 +10,9 @@ export default defineNuxtConfig({
                     content: 'A quick & simple website to read information about pokemons.'
                 }
             ],
-            link: [
-                {
-                    rel: 'stylesheet',
-                    href: '/assets/css/main.css'
-                }
-            ],
             "charset": 'utf-8',
             "viewport": "width=device-width, initial-scale=1"
         },
-    }
+    },
+    css: ['@/assets/css/main.css']
 })
