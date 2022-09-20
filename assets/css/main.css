@@ -1,0 +1,49 @@
+@import '_reset.css';
+@import '_fonts.css';
+
+body {
+    font-family: 'Space Mono', monospace;
+}
+
+.wrapper {
+    height: 100%;
+    max-width: 1170px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.form-control {
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+    width: 100%;
+}
+
+.input-text {
+    border-color: hsl(0, 0%, 17%);
+    border-radius: 5px;
+    border-style: dashed;
+    display: block;
+    width: 100%;
+    max-width: 350px;
+    padding: .5rem 1.5rem;
+}
+
+.input-text:focus {
+    outline: none;
+    box-shadow: hsla(160, 52%, 66%, .7) 10px 10px 15px 1px;
+}
+
+@media screen and (max-width: 78.125rem) {
+    .wrapper {
+        padding-left: 2rem;
+        padding-right: 2rem;
+    }
+}
+
+
+@media screen and (max-width: 49rem) {
+    .wrapper {
+        padding-left: 1rem;
+        padding-right: 1rem;
+    }
+}
