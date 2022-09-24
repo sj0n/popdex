@@ -1,4 +1,7 @@
 <script setup>
+import { titleCase } from '@/libs/titleCase';
+import { titleCaseMap } from '@/libs/enumerateTitleCase';
+
 definePageMeta({
     layout: 'pokemon'
 })
@@ -7,25 +10,9 @@ const { name } = useRoute().params;
 const url = `/api/pokemon/${name}`;
 const { data: pokemon, pending } = await useLazyFetch(url);
 
-const nameTitleCase = computed(() => {
-    return `${name.charAt(0).toUpperCase()}${name.substr(1)}`;
-})
-
-const pokemonTypes = computed(() => {
-    let newTypes = [];
-    for (let { type } of pokemon.value.response.types) {
-        newTypes = [...newTypes, `${type.name.charAt(0).toUpperCase()}${type.name.substr(1)}`]
-    }
-    return newTypes;
-})
-
-const pokemonAbilities = computed(() => {
-    let newAbilities = [];
-    for (let { ability } of pokemon.value.response.abilities) {
-        newAbilities = [...newAbilities, `${ability.name.charAt(0).toUpperCase()}${ability.name.substr(1)}`]
-    }
-    return newAbilities;
-})
+const nameTitleCase = computed(() => titleCase(name))
+const pokemonTypes = computed(() => titleCaseMap(pokemon.value.response.types, 'type'))
+const pokemonAbilities = computed(() => titleCaseMap(pokemon.value.response.abilities, 'ability'));
 
 useHead({
     title: `${nameTitleCase.value}`
@@ -111,13 +98,13 @@ main {
 } */
 
 @media screen and (max-width: 59rem) {
-    .pokemon-profile > div {
+    .pokemon-profile>div {
         gap: 2rem;
     }
 }
 
 @media screen and (max-width: 49rem) {
-    .pokemon-profile > div {
+    .pokemon-profile>div {
         gap: 1.3rem;
     }
 }

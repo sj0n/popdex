@@ -1,3 +1,5 @@
+import { titleCase } from "@/libs/titleCase";
+
 export default defineEventHandler(async (event) => {
     const { name } = event.context.params;
     const url = `https://pokeapi.co/api/v2/pokemon/${name}`;
@@ -13,7 +15,7 @@ export default defineEventHandler(async (event) => {
          Group pokemon moves by level available
         */
         for (const tempMove of tempMoves) {
-            tempMove.move.name = `${tempMove.move.name.charAt(0).toUpperCase()}${tempMove.move.name.substr(1)}`;
+            tempMove.move.name = titleCase(tempMove.move.name);
             if (!formattedMoves.hasOwnProperty(tempMove.level_learned_at)) {
                 formattedMoves[tempMove.level_learned_at] =  [{ 'name': tempMove.move.name, 'learn_by': tempMove.learn_by }];
             } else {
