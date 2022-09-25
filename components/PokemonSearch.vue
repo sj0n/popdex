@@ -1,4 +1,5 @@
 <script setup>
+import { ref, watch } from 'vue';
 let name = ref('');
 let url = ref('');
 watch(name, (newName) => {
