@@ -6,7 +6,8 @@ A simple pokedex web application. It is a play project to build knowledge on com
 
 - [NuxtJS](https://v3.nuxtjs.org)
 - [PokéAPI](https://pokeapi.co/)
-
+- [Vitest](https://vitest.dev)
+- [Vue testing library](https://github.com/testing-library/vue-testing-library)
 ## Setup
 
 ```bash
