@@ -1,9 +1,11 @@
-<script setup>
-const props = defineProps({
-    pokemonName: String
-})
+<script setup lang="ts">
+import type { Ref } from 'vue';
+
+const props = defineProps<{
+    pokemonName: any
+}>()
 const urlPokemonMoves = `/api/pokemon/${props.pokemonName}/moves`;
-const { data: moves, pending } = await useLazyFetch(urlPokemonMoves);
+const { data, pending }: { data: Ref<any>; pending: Ref<boolean> } = await useLazyFetch(urlPokemonMoves);
 </script>
 <template>
     <div class="pokemon-moves">
@@ -11,12 +13,12 @@ const { data: moves, pending } = await useLazyFetch(urlPokemonMoves);
         <template v-else>
             <h2>Moves</h2>
             <div>
-                <div v-for="move, level of moves.response.formattedMoves">
+                <div v-for="moves, level of data.response.formattedMoves">
                     <p class="pokemon-moves-subheading">Level {{ level }}</p>
                     <div class="moves-wrapper">
-                        <div v-for="data of move" class="move-pill">
-                            <span>{{ data.name }}</span>
-                            <p>Learn by: {{ data.learn_by }}</p>
+                        <div v-for="move of moves" class="move-pill">
+                            <span>{{ move.name }}</span>
+                            <p>Learn by: {{ move.learn_by }}</p>
                         </div>
                     </div>
                 </div>

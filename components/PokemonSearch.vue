@@ -1,4 +1,4 @@
-<script setup>
+<script setup lang="ts">
 import { ref, watch } from 'vue';
 let name = ref('');
 let url = ref('');
@@ -7,7 +7,7 @@ watch(name, (newName) => {
 })
 </script>
 <template>
-    <form :action="url" method="get" class="form-control" :name="name">
+    <form :action="url" method="get" class="form-control">
         <input type="text" id="name" placeholder="Search a pokemon, e.g. pikachu" class="input-text" v-model="name">
     </form>
 </template>
