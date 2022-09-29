@@ -1,4 +1,4 @@
-<script setup>
+<script setup lang="ts">
 let name = ref('');
 let url = ref('');
 watch(name, (newName) => {

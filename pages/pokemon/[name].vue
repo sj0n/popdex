@@ -1,31 +1,30 @@
-<script setup>
+<script setup lang="ts">
 import { titleCase } from '@/libs/titleCase';
 import { titleCaseMap } from '@/libs/enumerateTitleCase';
+import type { Ref } from 'vue';
 
 definePageMeta({
     layout: 'pokemon'
 })
 
-const { name } = useRoute().params;
-const url = `/api/pokemon/${name}`;
-const { data: pokemon, pending } = await useLazyFetch(url);
-
-const nameTitleCase = computed(() => titleCase(name))
-const pokemonTypes = computed(() => titleCaseMap(pokemon.value.response.types, 'type'))
-const pokemonAbilities = computed(() => titleCaseMap(pokemon.value.response.abilities, 'ability'));
+const params = useRoute().params;
+const url = `/api/pokemon/${params.name}`;
+const { data, pending }: {data: Ref<any>, pending: Ref<boolean>} = await useLazyFetch(url);
+const nameTitleCase = computed(() => titleCase(params.name))
+const pokemonTypes = computed(() => titleCaseMap(data.value.response.types, 'type'))
+const pokemonAbilities = computed(() => titleCaseMap(data.value.response.abilities, 'ability'));
 
 useHead({
     title: `${nameTitleCase.value}`
 })
-
 </script>
 
 <template>
     <main>
         <p v-if="pending">Loading!</p>
-        <template v-else-if="pokemon.ok">
+        <template v-else-if="data.ok">
             <section class="pokemon-profile">
-                <img :src="pokemon.response.image" :alt="pokemon.response.name" width="96" height="96" loading="lazy">
+                <img :src="data.response.image" :alt="data.response.name" width="96" height="96" loading="lazy">
                 <div>
                     <div class="pokemon-info">
                         <span>Name</span>
@@ -33,11 +32,11 @@ useHead({
                     </div>
                     <div class="pokemon-info">
                         <span>Height</span>
-                        <p>{{ pokemon.response.height / 10 }}m</p>
+                        <p>{{ data.response.height / 10 }}m</p>
                     </div>
                     <div class="pokemon-info">
                         <span>Weight</span>
-                        <p>{{ pokemon.response.weight / 10 }}kg</p>
+                        <p>{{ data.response.weight / 10 }}kg</p>
                     </div>
                     <div class="pokemon-info">
                         <span>Types</span>
@@ -57,9 +56,9 @@ useHead({
                     </div>
                 </div>
             </section>
-            <LazyPokemonMoves :pokemon-name="name" />
+            <LazyPokemonMoves :pokemon-name="params.name" />
         </template>
-        <div v-else-if="pokemon.response.message.includes('404')" class="error-404">
+        <div v-else-if="data.response.message.includes('404')" class="error-404">
             <h2>404</h2>
             <p>Can't find what you're looking for :(</p>
         </div>
@@ -93,9 +92,9 @@ main {
     font-weight: 700;
 }
 
-/* .error-404 {
+.error-404 {
     margin-top: 2rem;
-} */
+}
 
 @media screen and (max-width: 59rem) {
     .pokemon-profile>div {
