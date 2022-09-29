@@ -1,12 +1,28 @@
 import { titleCase } from "@/libs/titleCase";
 
+interface PokemonMoves {
+    moves: [
+        {
+            move: object
+            version_group_details: [
+                {
+                    level_learned_at: number,
+                    move_learn_method: {
+                        name: string
+                    }
+                }
+            ]
+        }
+    ]
+}
+
 export default defineEventHandler(async (event) => {
     const { name } = event.context.params;
     const url = `https://pokeapi.co/api/v2/pokemon/${name}`;
     try {
         let tempMoves = [];
         let formattedMoves = {};
-        const { moves } = await $fetch(url);
+        const { moves }: PokemonMoves = await $fetch(url);
 
         for (const { move, version_group_details: [{ level_learned_at, move_learn_method : { name }}] } of moves) {
             tempMoves = [...tempMoves, { move, level_learned_at, learn_by: name }];
