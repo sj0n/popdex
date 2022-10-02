@@ -1,10 +1,10 @@
 interface PokemonEncounters {
     location_area: object,
-    version_details: [
-        {
-            encounter_details: object[]
-        }
-    ]
+    version_details: VersionDetail[]
+}
+
+interface VersionDetail {
+    [index: string]: object[]
 }
 
 export default defineEventHandler(async (event) => {

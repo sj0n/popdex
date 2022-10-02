@@ -4,16 +4,16 @@ interface PokemonMoves {
     moves: [
         {
             move: object
-            version_group_details: [
-                {
-                    level_learned_at: number,
-                    move_learn_method: {
-                        name: string
-                    }
-                }
-            ]
+            version_group_details: MoveDetails[]
         }
     ]
+}
+
+interface MoveDetails {
+    level_learned_at: number,
+    move_learn_method: {
+            [index: string]: string
+    }
 }
 
 export default defineEventHandler(async (event) => {

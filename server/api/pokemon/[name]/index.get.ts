@@ -6,7 +6,7 @@ interface PokemonBasicData {
     types: object[],
     abilities: object[],
     sprites: {
-        front_default: string
+        [index: string]: string
     }
 }
 

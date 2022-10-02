@@ -1,4 +1,4 @@
-export function titleCase(data: any): string {
+export function titleCase(data: string): string {
     let tempTitle = data.includes('-') ? data.split('-') : data;
     if(Array.isArray(tempTitle)) {
         tempTitle = tempTitle.map((title) => {
