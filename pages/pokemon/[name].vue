@@ -2,12 +2,17 @@
 import { titleCase } from '@/libs/titleCase';
 import { titleCaseMap } from '@/libs/enumerateTitleCase';
 import type { Ref } from 'vue';
+import { RouteParams } from 'vue-router';
 
 definePageMeta({
     layout: 'pokemon'
 })
 
-const params = useRoute().params;
+type Params = RouteParams & {
+    name?: string
+}
+
+const params: Params = useRoute().params;
 const url = `/api/pokemon/${params.name}`;
 const { data, pending }: {data: Ref<any>, pending: Ref<boolean>} = await useLazyFetch(url);
 const nameTitleCase = computed(() => titleCase(params.name))
