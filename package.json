@@ -1,27 +1,41 @@
 {
-  "private": true,
-  "scripts": {
-    "build": "nuxt build",
-    "dev": "nuxt dev",
-    "generate": "nuxt generate",
-    "preview": "nuxt preview",
-    "postinstall": "nuxt ",
-    "test": "vitest run --coverage",
-    "test:watch": "vitest --watch --coverage",
-    "test:ui": "vitest --ui",
-    "e2e": "pnpm dlx playwright test"
-  },
-  "devDependencies": {
-    "@playwright/test": "^1.26.1",
-    "@testing-library/vue": "^6.6.1",
-    "@vitejs/plugin-vue": "^3.1.0",
-    "@vitest/coverage-c8": "^0.23.4",
-    "@vitest/ui": "^0.23.4",
-    "@vue/compiler-sfc": "^3.2.40",
-    "happy-dom": "^6.0.4",
-    "nuxt": "3.0.0-rc.11",
-    "vite": "^3.1.4",
-    "vitest": "^0.23.4",
-    "vue": "^3.2.40"
-  }
+    "private": true,
+    "type": "module",
+    "scripts": {
+        "build": "nuxt build",
+        "dev": "nuxt dev",
+        "generate": "nuxt generate",
+        "preview": "nuxt preview",
+        "test": "vitest run",
+        "test:watch": "vitest --watch --coverage",
+        "test:ui": "vitest --ui",
+        "e2e": "bunx playwright test"
+    },
+    "devDependencies": {
+        "@nuxtjs/tailwindcss": "^6.12.1",
+        "@playwright/test": "^1.47.2",
+        "@testing-library/vue": "^8.1.0",
+        "@vitejs/plugin-vue": "^5.1.4",
+        "@vitest/coverage-v8": "^2.1.1",
+        "@vitest/ui": "^2.1.1",
+        "@vue/compiler-sfc": "^3.5.8",
+        "happy-dom": "^15.7.4",
+        "nuxt": "^3.13.2",
+        "prettier": "^3.3.3",
+        "prettier-plugin-tailwindcss": "^0.6.8",
+        "shadcn-nuxt": "^0.10.4",
+        "typescript": "^5.6.2",
+        "vite": "^5.4.7",
+        "vitest": "^2.1.1",
+        "vue": "^3.5.8"
+    },
+    "dependencies": {
+        "@vueuse/core": "^11.1.0",
+        "class-variance-authority": "^0.7.0",
+        "clsx": "^2.1.1",
+        "lucide-vue-next": "^0.446.0",
+        "radix-vue": "^1.9.6",
+        "tailwind-merge": "^2.5.2",
+        "tailwindcss-animate": "^1.0.7"
+    }
 }

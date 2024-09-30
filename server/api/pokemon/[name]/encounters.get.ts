@@ -13,10 +13,10 @@ export default defineEventHandler(async (event) => {
     try {
         const data: any[] = await $fetch(url);
         const desctructed = data.map((obj) => {
-            // Desctructer objects on response data
+
             let { location_area, version_details: [{ encounter_details }] }: PokemonEncounters = obj;
 
-            return { location_area, version_details: [{ encounter_details }]}
+            return { location_area, version_details: [{ encounter_details }] }
         })
         return desctructed;
     } catch ({ name, message }) {

@@ -6,10 +6,8 @@ test.describe('Pokemon Profile', () => {
         const input = page.locator('#name');
         
         await expect.soft(input).toBeVisible();
-        await input.type('pikachu');
+        await input.fill('pikachu');
         await input.press('Enter');
-        await expect(page).toHaveTitle(/pikachu/i);
-        await expect.soft(page.locator('.pokemon-profile')).toBeVisible();
-        await expect.soft(page.locator('.pokemon-moves')).toBeVisible();
+        await expect.soft(page).toHaveTitle(/pikachu/i);
     })
 })

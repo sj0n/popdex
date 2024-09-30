@@ -17,18 +17,17 @@ interface MoveDetails {
 }
 
 export default defineEventHandler(async (event) => {
-    const { name } = event.context.params;
-    const url = `https://pokeapi.co/api/v2/pokemon/${name}`;
+    const name = getRouterParam(event, 'name');
     try {
-        let tempMoves = [];
-        let formattedMoves = {};
-        const { moves }: PokemonMoves = await $fetch(url);
+        const { moves } = await $fetch<PokemonMoves>(`https://pokeapi.co/api/v2/pokemon/${name}`);
+        let tempMoves: Record<string, any>[] = [];
+        let formattedMoves: any = {};
 
         for (const { move, version_group_details: [{ level_learned_at, move_learn_method : { name }}] } of moves) {
             tempMoves = [...tempMoves, { move, level_learned_at, learn_by: name }];
         }
         /*
-         Group pokemon moves by level available
+         Group pokemon moves by levels
         */
         for (const tempMove of tempMoves) {
             tempMove.move.name = titleCase(tempMove.move.name);
@@ -40,14 +39,30 @@ export default defineEventHandler(async (event) => {
         }
         return {
             ok: true,
-            response: {
-                formattedMoves
-            }
+            response: formattedMoves
         }
-    } catch({ name, message }) {
-        return {
-            ok: false,
-            response: { name, message }
+    } catch(e) {
+        if (e instanceof Error) {
+            if (e.message.includes('Not Found')) {
+                setResponseStatus(event, 404);
+            } else if (e.message.includes('Unauthorized')) {
+                setResponseStatus(event, 401);
+            } else if (e.message.includes('Bad Request')) {
+                setResponseStatus(event, 400);
+            } else {
+                setResponseStatus(event, 500);
+            }
+
+            return {
+                ok: false,
+                message: e.message,
+            }
+        } else {
+            setResponseStatus(event, 500);
+            return {
+                ok: false,
+                message: 'An error occured. Try again later.'
+            }
         }
     }
 })

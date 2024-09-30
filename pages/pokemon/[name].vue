@@ -1,115 +1,89 @@
 <script setup lang="ts">
-import { titleCase } from '@/libs/titleCase';
-import { titleCaseMap } from '@/libs/enumerateTitleCase';
-import type { Ref } from 'vue';
-import { RouteParams } from 'vue-router';
+import { titleCase } from "@/libs/titleCase";
+import { titleCaseMap } from "@/libs/enumerateTitleCase";
+import type { PokemonProfile } from "~/server/api/pokemon/[name]/index.get";
 
 definePageMeta({
-    layout: 'pokemon'
-})
+  layout: "pokemon",
+});
 
-type Params = RouteParams & {
-    name?: string
-}
-
-const params: Params = useRoute().params;
-const url = `/api/pokemon/${params.name}`;
-const { data, pending }: {data: Ref<any>, pending: Ref<boolean>} = await useLazyFetch(url);
-const nameTitleCase = computed(() => titleCase(params.name))
-const pokemonTypes = computed(() => titleCaseMap(data.value.response.types, 'type'))
-const pokemonAbilities = computed(() => titleCaseMap(data.value.response.abilities, 'ability'));
+const route = useRoute();
+const { data, status, error } = await useFetch(
+  `/api/pokemon/${route.params.name}`,
+);
+const pokemonData = data.value as {
+  ok: boolean;
+  response: PokemonProfile;
+  message?: string;
+};
+const nameTitleCase = computed(() => titleCase(route.params.name as string));
+const pokemonTypes = computed(() =>
+  titleCaseMap(pokemonData.response.types, "type"),
+);
+const pokemonAbilities = computed(() =>
+  titleCaseMap(pokemonData.response.abilities, "ability"),
+);
 
 useHead({
-    title: `${nameTitleCase.value}`
-})
+  title: `${nameTitleCase.value}`,
+});
 </script>
 
 <template>
-    <main>
-        <p v-if="pending">Loading!</p>
-        <template v-else-if="data.ok">
-            <section class="pokemon-profile">
-                <img :src="data.response.image" :alt="data.response.name" width="96" height="96" loading="lazy">
-                <div>
-                    <div class="pokemon-info">
-                        <span>Name</span>
-                        <p>{{ nameTitleCase }}</p>
-                    </div>
-                    <div class="pokemon-info">
-                        <span>Height</span>
-                        <p>{{ data.response.height / 10 }}m</p>
-                    </div>
-                    <div class="pokemon-info">
-                        <span>Weight</span>
-                        <p>{{ data.response.weight / 10 }}kg</p>
-                    </div>
-                    <div class="pokemon-info">
-                        <span>Types</span>
-                        <div class="pokemon-type">
-                            <p v-for="typeName of pokemonTypes">
-                                {{ typeName }}
-                            </p>
-                        </div>
-                    </div>
-                    <div class="pokemon-info">
-                        <span>Abilities</span>
-                        <div class="pokemon-ability">
-                            <p v-for="abilityName of pokemonAbilities">
-                                {{ abilityName }}
-                            </p>
-                        </div>
-                    </div>
-                </div>
-            </section>
-            <LazyPokemonMoves :pokemon-name="params.name" />
-        </template>
-        <div v-else-if="data.response.message.includes('404')" class="error-404">
-            <h2>404</h2>
-            <p>Can't find what you're looking for :(</p>
+  <main class="mb-2 lg:mb-0">
+    <p v-if="status === 'pending'">Loading!</p>
+    <div
+      v-else-if="status === 'error' && error?.statusCode === 404"
+      class="mt-2"
+    >
+      <h2>404 😭</h2>
+      <p>Pokemon not found.</p>
+    </div>
+    <template v-else-if="status === 'success' && pokemonData.ok">
+      <section
+        class="mb-8 flex flex-col gap-4 rounded-[10px] bg-white px-4 py-6 lg:flex-row lg:px-2 lg:py-3 dark:bg-neutral-900"
+      >
+        <div class="flex w-full items-center justify-center lg:w-auto">
+          <img
+            :src="pokemonData.response.image"
+            :alt="pokemonData.response.name"
+            width="96"
+            height="96"
+            loading="lazy"
+            class="-ml-4 lg:ml-0"
+          />
+          <span class="text-2xl font-semibold">{{ nameTitleCase }}</span>
         </div>
-    </main>
+        <div
+          class="flex flex-wrap justify-center gap-8 lg:ml-auto lg:items-center lg:gap-16 lg:pr-10"
+        >
+          <div>
+            <span class="text-lg font-semibold">Height</span>
+            <p>{{ pokemonData.response.height / 10 }}m</p>
+          </div>
+          <div>
+            <span class="text-lg font-semibold">Weight</span>
+            <p>{{ pokemonData.response.weight / 10 }}kg</p>
+          </div>
+          <div>
+            <span class="text-lg font-semibold">Types</span>
+            <div>
+              <p v-for="typeName of pokemonTypes">
+                {{ typeName }}
+              </p>
+            </div>
+          </div>
+          <div>
+            <span class="text-lg font-semibold">Abilities</span>
+            <div>
+              <p v-for="abilityName of pokemonAbilities">
+                {{ abilityName }}
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+      <LazyPokemonMoves :pokemon-name="route.params.name as string" />
+    </template>
+  </main>
 </template>
-
-<style scoped>
-main {
-    margin-bottom: 2rem;
-}
-
-.pokemon-profile {
-    border-color: hsl(0, 0%, 17%);
-    border-style: dashed;
-    border-radius: 5px;
-    display: flex;
-    gap: 4rem;
-    padding: 1rem 2rem;
-    align-items: center;
-    margin-bottom: 2rem;
-}
-
-.pokemon-profile>div {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 4rem;
-}
-
-.pokemon-info>span {
-    font-size: 1.1rem;
-    font-weight: 700;
-}
-
-.error-404 {
-    margin-top: 2rem;
-}
-
-@media screen and (max-width: 59rem) {
-    .pokemon-profile>div {
-        gap: 2rem;
-    }
-}
-
-@media screen and (max-width: 49rem) {
-    .pokemon-profile>div {
-        gap: 1.3rem;
-    }
-}
-</style>
