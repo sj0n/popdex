@@ -1,6 +1,6 @@
 # PopDex
 
-A simple pokedex web application. It is a play project to build knowledge on common tools used when building a web application.
+A simple pokedex web application.
 
 ## Tools
 
@@ -21,6 +21,9 @@ npm install
 
 # pnpm
 pnpm install --shamefully-hoist
+
+#bun
+bun install
 ```
 
 ## Development Server
@@ -28,13 +31,13 @@ pnpm install --shamefully-hoist
 Start the development server on http://localhost:3000
 
 ```bash
-pnpm run dev
+bun run dev
 ```
 
 ## Unit/Component Testing
 
 ```bash
-pnpm run test
+bun run test
 ```
 
 ## E2E Testing
@@ -42,11 +45,11 @@ pnpm run test
 Start the development server on http://localhost:3000
 
 ```bash
-pnpm run dev
+bun run dev
 ```
 
 ```bash
-pnpm run e2e
+bun run e2e
 ```
 
 ## Production
@@ -54,11 +57,11 @@ pnpm run e2e
 Build the application for production:
 
 ```bash
-pnpm run build
+bun run build
 ```
 
 Locally preview production build:
 
 ```bash
-pnpm run preview
+bun run preview
 ```
