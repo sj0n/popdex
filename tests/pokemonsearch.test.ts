@@ -1,6 +1,6 @@
 import { describe, it, expect } from 'vitest'
 import { render, screen, fireEvent, cleanup } from '@testing-library/vue';
-import PokemonSearch from '../components/PokemonSearch.vue';
+import PokemonSearch from '../components/SearchPokemon.vue';
 
 describe.concurrent('Homepage Pokemon Search component', () => {
     it('renders the pokemon search component', async () => {
