@@ -1,7 +1,7 @@
 <script setup lang="ts">
 const route = useRoute();
 const { data, status } = await useLazyFetch(
-    `/api/pokemon/${route.params.name}/spawn`,
+    `/api/pokemon/${route.params.name}/locations`,
 );
 const locations = data.value as {
     ok: boolean;
