@@ -37,6 +37,11 @@ export default defineEventHandler(async (event) => {
                 formattedMoves[tempMove.level_learned_at].push({ 'name': tempMove.move.name, 'learn_by': tempMove.learn_by });
             }
         }
+
+        setResponseHeaders(event, {
+            'Cache-Control': 'public, max-age=604800, must-revalidate',
+            'Expires': new Date(Date.now() + 604800000).toUTCString()
+        });
         return {
             ok: true,
             response: formattedMoves
