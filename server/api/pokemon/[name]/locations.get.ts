@@ -59,6 +59,10 @@ export default defineEventHandler(async (event) => {
             });
         });
 
+        setResponseHeaders(event, {
+            'Cache-Control': 'public, max-age=604800, must-revalidate',
+            'Expires': new Date(Date.now() + 604800000).toUTCString()
+        });
         return {
             ok: true,
             response: Object.values(grouped)

@@ -9,7 +9,7 @@ definePageMeta({
 
 const route = useRoute();
 const { data, status, error } = await useFetch(
-  `/api/pokemon/${route.params.name}`,
+  `/api/pokemon/${route.params.name}`
 );
 const pokemonData = data.value as {
   ok: boolean;

@@ -4,7 +4,7 @@ import { Tabs, TabsTrigger, TabsList, TabsContent } from "@/components/ui/tabs";
 const props = defineProps<{
   pokemonName: string;
 }>();
-const { data, status } = await useLazyFetch(
+const { data, status } = await useFetch(
   `/api/pokemon/${props.pokemonName}/moves`,
 );
 const pokemonMoves = data.value as {
