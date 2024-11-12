@@ -1,6 +1,6 @@
 # PopDex
 
-A simple pokedex web application.
+A simple Pokédex web application.
 
 ## Tools
 
