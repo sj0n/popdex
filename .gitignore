@@ -13,4 +13,3 @@ dist
 /playwright-report/
 /playwright/.cache/
 /coverage/
-server/api/pokemon/[name]/encounters.get.ts

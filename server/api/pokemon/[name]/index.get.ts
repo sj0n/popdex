@@ -3,7 +3,6 @@ export interface PokemonProfile {
     name: string,
     height: number,
     weight: number,
-    image: string,
     types: object[],
     abilities: object[],
     sprites: {
@@ -12,21 +11,16 @@ export interface PokemonProfile {
 }
 
 export default defineEventHandler(async (event) => {
-    const nameParam = getRouterParam(event, 'name');
-
+    const config = useRuntimeConfig()
+    const name = getRouterParam(event, 'name');
     try {
-        const { id, name, height, weight, types, abilities, sprites: { front_default } } = await $fetch<PokemonProfile>(`https://pokeapi.co/api/v2/pokemon/${nameParam}`);
+        const { _data: resp, headers } = await $fetch.raw<PokemonProfile>(`${config.originAPI}${name}`);
 
         setResponseHeaders(event, {
-            'Cache-Control': 'public, max-age=604800, must-revalidate',
-            'Expires': new Date(Date.now() + 604800000).toUTCString()
+            "cache-control": headers.get('cache-control'),
+            etag: headers.get('etag'),
         });
-        return {
-            ok: true,
-            response: {
-                id, name, height, weight, image: front_default, types, abilities
-            }
-        }
+        return resp;
     } catch (e) {
         if (e instanceof Error) {
             if (e.message.includes('Not Found')) {
@@ -39,16 +33,10 @@ export default defineEventHandler(async (event) => {
                 setResponseStatus(event, 500);
             }
 
-            return {
-                ok: false,
-                message: e.message
-            }
+            return e.message;
         } else {
             setResponseStatus(event, 500);
-            return {
-                ok: false,
-                message: 'An error occured. Try again later.'
-            }
+            return 'Internal Server Error.'
         }
     }
 });
