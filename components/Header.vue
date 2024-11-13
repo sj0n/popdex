@@ -6,6 +6,6 @@
     <h1 class="text-6xl font-semibold">
       <NuxtLink to="/">PopDex</NuxtLink>
     </h1>
-    <SearchPokemon :inline=true />
+    <SearchPokemon :inline="true" />
   </header>
 </template>

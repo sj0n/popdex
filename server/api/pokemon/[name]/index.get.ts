@@ -14,7 +14,7 @@ export default defineEventHandler(async (event) => {
     const config = useRuntimeConfig()
     const name = getRouterParam(event, 'name');
     const requestEtag = getRequestHeader(event, 'if-none-match');
-    
+
     try {
         const { _data: resp, headers } = await $fetch.raw<PokemonProfile>(`${config.originAPI}${name}`);
 

@@ -1,14 +1,14 @@
 export interface PokemonSpawnLocation {
-   versions: {
-    [index: string]: [
-        {
-            location_name: string
-            min_level: number
-            max_level: number
-            method: string
-        }
-    ]
-   }
+    versions: {
+        [index: string]: [
+            {
+                location_name: string
+                min_level: number
+                max_level: number
+                method: string
+            }
+        ]
+    }
 }
 
 export default defineEventHandler(async (event) => {
@@ -17,7 +17,7 @@ export default defineEventHandler(async (event) => {
     const requestEtag = getRequestHeader(event, 'if-none-match');
 
     try {
-        const { _data: resp, headers} = await $fetch.raw<PokemonSpawnLocation>(`${config.originAPI}${name}/locations`);
+        const { _data: resp, headers } = await $fetch.raw<PokemonSpawnLocation>(`${config.originAPI}${name}/locations`);
 
         if (requestEtag === headers.get('etag')) {
             setResponseStatus(event, 304)

@@ -1,6 +1,6 @@
 export function titleCase(data: string): string {
     let tempTitle = data.includes('-') ? data.split('-') : data;
-    if(Array.isArray(tempTitle)) {
+    if (Array.isArray(tempTitle)) {
         tempTitle = tempTitle.map((title) => {
             return `${title.charAt(0).toUpperCase()}${title.substring(1)}`
         })
