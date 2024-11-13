@@ -9,7 +9,7 @@ const props = defineProps<{
 
 const { data, status } = await useFetch<PokemonMoves>(
     `/api/pokemon/${props.pokemonName}/moves`, {
-        cache: 'force-cache'
+        cache: "no-cache"
     }
 );
 const versions = Object.keys(data.value?.versions || {});
