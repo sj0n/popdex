@@ -14,8 +14,15 @@ export interface PokemonSpawnLocation {
 export default defineEventHandler(async (event) => {
     const config = useRuntimeConfig()
     const name = getRouterParam(event, 'name');
+    const requestEtag = getRequestHeader(event, 'if-none-match');
+
     try {
         const { _data: resp, headers} = await $fetch.raw<PokemonSpawnLocation>(`${config.originAPI}${name}/locations`);
+
+        if (requestEtag === headers.get('etag')) {
+            setResponseStatus(event, 304)
+            return;
+        }
 
         setResponseHeaders(event, {
             "cache-control": headers.get('cache-control'),
