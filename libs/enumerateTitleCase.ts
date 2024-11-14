@@ -1,8 +1,14 @@
 import { titleCase } from './titleCase';
 
-export function titleCaseMap(data: object[], key: string) {
+interface DataItem {
+    [index: string]: {
+        [index: string]: any
+    };
+}
+
+export function titleCaseMap(data: DataItem[], key: string) {
     if (Array.isArray(data)) {
-        let formatted = [];
+        let formatted: string[] = [];
         for (let property of data) {
             formatted = [...formatted, titleCase(property[key].name)]
         }

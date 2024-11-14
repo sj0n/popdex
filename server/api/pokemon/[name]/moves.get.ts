@@ -24,7 +24,6 @@ export default defineEventHandler(async (event) => {
         }
 
         setResponseHeaders(event, {
-            "cache-control": headers.get('cache-control'),
             etag: headers.get('etag'),
         });
         return resp;

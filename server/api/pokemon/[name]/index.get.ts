@@ -3,8 +3,16 @@ export interface PokemonProfile {
     name: string,
     height: number,
     weight: number,
-    types: object[],
-    abilities: object[],
+    types: {
+        [index: string]: {
+            [index: string]: any
+        };
+    }[],
+    abilities: {
+        [index: string]: {
+            [index: string]: any
+        };
+    }[],
     sprites: {
         [index: string]: string
     }
@@ -24,7 +32,6 @@ export default defineEventHandler(async (event) => {
         }
 
         setResponseHeaders(event, {
-            "cache-control": headers.get('cache-control'),
             etag: headers.get('etag'),
         });
         return resp;
