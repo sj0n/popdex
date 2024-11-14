@@ -9,9 +9,6 @@ const props = defineProps<{
 
 const { data, status } = await useFetch<PokemonMoves>(
   `/api/pokemon/${props.pokemonName}/moves`,
-  {
-    cache: "no-cache",
-  },
 );
 const versions = Object.keys(data.value?.versions || {});
 </script>

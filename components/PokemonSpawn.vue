@@ -9,9 +9,6 @@ const props = defineProps<{
 }>();
 const { data, status } = await useFetch<PokemonSpawnLocation>(
   `/api/pokemon/${route.params.name}/locations`,
-  {
-    cache: "no-cache",
-  },
 );
 
 const versions = Object.keys(data.value?.versions || {});

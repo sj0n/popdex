@@ -10,9 +10,6 @@ definePageMeta({
 const route = useRoute();
 const { data, status, error } = await useFetch<PokemonProfile>(
   `/api/pokemon/${route.params.name}`,
-  {
-    cache: "no-cache",
-  },
 );
 
 const pokemonTypes = computed(() =>
