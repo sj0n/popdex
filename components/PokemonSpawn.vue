@@ -3,10 +3,10 @@ import { Tabs, TabsTrigger, TabsList, TabsContent } from "./ui/tabs";
 import { Badge } from "./ui/badge";
 import type { PokemonSpawnLocation } from "~/server/api/pokemon/[name]/locations.get";
 
-const route = useRoute();
-const props = defineProps<{
+defineProps<{
   pokemonName: string;
 }>();
+const route = useRoute();
 const { data, status } = await useFetch<PokemonSpawnLocation>(
   `/api/pokemon/${route.params.name}/locations`,
   {
@@ -38,6 +38,7 @@ const versions = Object.keys(data.value?.versions || {});
         <div class="location-wrapper gap-6 pt-6">
           <div
             v-for="location of locations"
+            :key="location.location_name"
             class="rounded-[10px] bg-teal-700 p-4 text-slate-50 dark:bg-teal-200 dark:text-slate-800"
           >
             <span class="font-semibold">{{ location.location_name }}</span>
