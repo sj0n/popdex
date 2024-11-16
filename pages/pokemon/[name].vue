@@ -8,8 +8,9 @@ definePageMeta({
 });
 
 const route = useRoute();
+const pokemonName = route.params.name as string;
 const { data, status, error } = await useFetch<PokemonProfile>(
-  `/api/pokemon/${route.params.name}`,
+  `/api/pokemon/${pokemonName}`,
   {
     cache: 'no-cache',
   }
@@ -21,7 +22,7 @@ const pokemonTypes = computed(() =>
 const pokemonAbilities = computed(() =>
   data.value?.abilities ? titleCaseMap(data.value.abilities, "ability") : [],
 );
-const nameTitleCase = computed(() => titleCase(route.params.name as string));
+const nameTitleCase = computed(() => titleCase(pokemonName));
 
 useHead({
   title: `${nameTitleCase.value}`,
@@ -82,8 +83,8 @@ useHead({
           </div>
         </div>
       </section>
-      <PokemonSpawn :pokemon-name="route.params.name as string" />
-      <PokemonMoves :pokemon-name="route.params.name as string" />
+      <PokemonSpawn :pokemon-name="pokemonName" />
+      <PokemonMoves :pokemon-name="pokemonName" />
     </template>
   </main>
 </template>

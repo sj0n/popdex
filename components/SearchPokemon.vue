@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { Input } from "@/components/ui/input";
 
-const props = defineProps<{
+defineProps<{
   inline?: boolean;
 }>();
 

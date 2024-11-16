@@ -30,7 +30,7 @@ const versions = Object.keys(data.value?.versions || {});
           </TabsList>
         </div>
         <TabsContent
-          v-for="(moves, version) in data?.versions"
+          v-for="(moves, version) of data?.versions"
           :value="version"
           :key="version"
           class="max-h-[30rem] overflow-y-auto"
@@ -38,6 +38,7 @@ const versions = Object.keys(data.value?.versions || {});
           <div class="move-wrapper gap-6 pt-6">
             <div
               v-for="move of moves"
+              :key="move.name"
               class="rounded-[10px] bg-teal-700 p-4 text-slate-50 dark:bg-teal-200 dark:text-slate-800"
             >
               <span class="font-semibold">{{ move.name }}</span>
