@@ -19,14 +19,15 @@ export default defineEventHandler(async (event) => {
     try {
         const { _data: resp, headers } = await $fetch.raw<PokemonSpawnLocation>(`${config.originAPI}${name}/locations`);
 
+        setResponseHeaders(event, {
+            etag: headers.get('etag'),
+            "cache-control": headers.get('cache-control')
+        });
+
         if (requestEtag === headers.get('etag')) {
             setResponseStatus(event, 304)
             return;
         }
-
-        setResponseHeaders(event, {
-            etag: headers.get('etag'),
-        })
 
         return resp;
     } catch (e) {
