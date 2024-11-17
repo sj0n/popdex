@@ -12,30 +12,31 @@
         "e2e": "bunx playwright test"
     },
     "devDependencies": {
-        "@nuxtjs/tailwindcss": "^6.12.1",
-        "@playwright/test": "^1.47.2",
+        "@nuxtjs/color-mode": "^3.5.2",
+        "@nuxtjs/tailwindcss": "^6.12.2",
+        "@playwright/test": "^1.48.2",
         "@testing-library/vue": "^8.1.0",
-        "@vitejs/plugin-vue": "^5.1.4",
-        "@vitest/coverage-v8": "^2.1.1",
-        "@vitest/ui": "^2.1.1",
-        "@vue/compiler-sfc": "^3.5.8",
-        "happy-dom": "^15.7.4",
-        "nuxt": "^3.13.2",
+        "@vitejs/plugin-vue": "^5.2.0",
+        "@vitest/coverage-v8": "^2.1.5",
+        "@vitest/ui": "^2.1.5",
+        "@vue/compiler-sfc": "^3.5.13",
+        "happy-dom": "^15.11.6",
+        "nuxt": "^3.14.159",
         "prettier": "^3.3.3",
         "prettier-plugin-tailwindcss": "^0.6.8",
-        "shadcn-nuxt": "^0.10.4",
-        "typescript": "^5.6.2",
-        "vite": "^5.4.7",
-        "vitest": "^2.1.1",
-        "vue": "^3.5.8"
+        "shadcn-nuxt": "^0.11.2",
+        "typescript": "^5.6.3",
+        "vite": "^5.4.11",
+        "vitest": "^2.1.5",
+        "vue": "^3.5.13"
     },
     "dependencies": {
-        "@vueuse/core": "^11.1.0",
+        "@vueuse/core": "^11.2.0",
         "class-variance-authority": "^0.7.0",
         "clsx": "^2.1.1",
-        "lucide-vue-next": "^0.446.0",
-        "radix-vue": "^1.9.6",
-        "tailwind-merge": "^2.5.2",
+        "lucide-vue-next": "^0.460.0",
+        "radix-vue": "^1.9.9",
+        "tailwind-merge": "^2.5.4",
         "tailwindcss-animate": "^1.0.7"
     }
 }

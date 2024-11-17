@@ -50,7 +50,6 @@ useHead({
             width="96"
             height="96"
             loading="lazy"
-            class=""
           />
           <span class="text-2xl font-semibold">{{ nameTitleCase }}</span>
         </div>

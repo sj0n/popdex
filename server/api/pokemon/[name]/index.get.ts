@@ -26,14 +26,16 @@ export default defineEventHandler(async (event) => {
     try {
         const { _data: resp, headers } = await $fetch.raw<PokemonProfile>(`${config.originAPI}${name}`);
 
+        setResponseHeaders(event, {
+            etag: headers.get('etag'),
+            "cache-control": headers.get('cache-control')
+        });
+
         if (requestEtag === headers.get('etag')) {
             setResponseStatus(event, 304)
             return;
         }
 
-        setResponseHeaders(event, {
-            etag: headers.get('etag'),
-        });
         return resp;
     } catch (e) {
         if (e instanceof Error) {
