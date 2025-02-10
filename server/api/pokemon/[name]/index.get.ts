@@ -4,17 +4,17 @@ export interface PokemonProfile {
     height: number,
     weight: number,
     types: {
-        [index: string]: {
-            [index: string]: any
+        type: {
+            name: string
         };
     }[],
     abilities: {
-        [index: string]: {
-            [index: string]: any
+        ability: {
+            name: string
         };
     }[],
     sprites: {
-        [index: string]: string
+        front_default: string
     }
 }
 
@@ -26,15 +26,16 @@ export default defineEventHandler(async (event) => {
     try {
         const { _data: resp, headers } = await $fetch.raw<PokemonProfile>(`${config.originAPI}${name}`);
 
+        if (requestEtag === headers.get('etag')) {
+            setResponseHeader(event, "etag", headers.get('etag'));
+            setResponseStatus(event, 304)
+            return;
+        }
+
         setResponseHeaders(event, {
             etag: headers.get('etag'),
             "cache-control": headers.get('cache-control')
         });
-
-        if (requestEtag === headers.get('etag')) {
-            setResponseStatus(event, 304)
-            return;
-        }
 
         return resp;
     } catch (e) {

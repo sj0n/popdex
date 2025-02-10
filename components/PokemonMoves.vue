@@ -1,62 +1,44 @@
 <script setup lang="ts">
 import { Tabs, TabsTrigger, TabsList, TabsContent } from "./ui/tabs";
 import { Badge } from "./ui/badge";
+import { Skeleton } from "./ui/skeleton";
 import type { PokemonMoves } from "~/server/api/pokemon/[name]/moves.get";
 
-const props = defineProps<{
-  pokemonName: string;
-}>();
-
-const { data, status } = await useFetch<PokemonMoves>(
-  `/api/pokemon/${props.pokemonName}/moves`,
-  {
-    cache: 'no-cache',
-  }
+const route = useRoute();
+const { data, status } = await useLazyFetch<PokemonMoves>(
+    `/api/pokemon/${route.params.name}/moves`,
+    {
+        cache: 'no-cache',
+    }
 );
-const versions = Object.keys(data.value?.versions || {});
+const versions = computed(() => Object.keys(data.value?.versions || []));
 </script>
 
 <template>
-  <div>
-    <p v-if="status === 'pending'">Loading...</p>
-    <template v-else>
-      <h2 class="mb-4 text-4xl font-semibold">Moves</h2>
-      <Tabs :default-value="versions[0]">
-        <div class="relative rounded-md shadow-md">
-          <TabsList class="inline-flex w-full max-w-full overflow-x-auto">
-            <TabsTrigger v-for="version in versions" :value="version">{{
-              version
-            }}</TabsTrigger>
-          </TabsList>
-        </div>
-        <TabsContent
-          v-for="(moves, version) of data?.versions"
-          :value="version"
-          :key="version"
-          class="max-h-[30rem] overflow-y-auto"
-        >
-          <div class="move-wrapper gap-6 pt-6">
-            <div
-              v-for="move of moves"
-              :key="move.name"
-              class="rounded-[10px] bg-teal-700 p-4 text-slate-50 dark:bg-teal-200 dark:text-slate-800"
-            >
-              <span class="font-semibold">{{ move.name }}</span>
-              <div class="mt-2">
-                <Badge class="mr-2">Level {{ move.level }}</Badge>
-                <Badge>{{ move.learn_method }}</Badge>
-              </div>
-            </div>
-          </div>
-        </TabsContent>
-      </Tabs>
+    <template v-if="status === 'pending'">
+        <Skeleton class="mb-12 h-32 w-full" />
     </template>
-  </div>
+    <template v-else-if="status === 'success' && data">
+        <h2 class="mb-4 text-2xl font-semibold">Moves</h2>
+        <Tabs :default-value="versions[0]" class="mb-12">
+            <div class="relative shadow-md">
+                <TabsList class="inline-flex w-full max-w-full overflow-x-auto">
+                    <TabsTrigger v-for="version in versions" :value="version">{{
+                        version
+                        }}</TabsTrigger>
+                </TabsList>
+            </div>
+            <TabsContent v-for="(moves, version) of data?.versions" :value="version" :key="version"
+                class="max-h-[30rem] overflow-y-auto">
+                <ul class="grid grid-cols-1 gap-4 md:grid-cols-3">
+                    <li v-for="move of moves" :key="move.name"
+                        class="mt-4 rounded-md bg-teal-400 p-4 shadow-md dark:bg-teal-200 dark:text-neutral-800">
+                        <h3 class="font-semibold">{{ move.name }}</h3>
+                        <Badge class="mr-2">Level {{ move.level }}</Badge>
+                        <Badge>{{ move.learn_method }}</Badge>
+                    </li>
+                </ul>
+            </TabsContent>
+        </Tabs>
+    </template>
 </template>
-
-<style scoped>
-.move-wrapper {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-}
-</style>

@@ -19,7 +19,7 @@ const delegatedProps = computed(() => {
     v-bind="delegatedProps"
     :class="
       cn(
-        'rounded-md bg-neutral-100 p-1 text-neutral-500 dark:bg-neutral-800 dark:text-neutral-400',
+        'pixel-border rounded-md bg-neutral-100 p-1 text-neutral-500 dark:bg-neutral-900 dark:text-neutral-400',
         props.class,
       )
     "
