@@ -32,7 +32,7 @@ const versions = computed(() => Object.keys(data.value?.versions || []));
                 class="max-h-[30rem] overflow-y-auto">
                 <ul class="grid grid-cols-1 gap-4 md:grid-cols-3">
                     <li v-for="move of moves" :key="move.name"
-                        class="mt-4 rounded-md bg-teal-400 p-4 shadow-md dark:bg-teal-200 dark:text-neutral-800">
+                        class="pixel-border mt-4 rounded-md bg-teal-400 p-4 shadow-md dark:bg-teal-200 dark:text-neutral-800">
                         <h3 class="font-semibold">{{ move.name }}</h3>
                         <Badge class="mr-2">Level {{ move.level }}</Badge>
                         <Badge>{{ move.learn_method }}</Badge>

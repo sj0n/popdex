@@ -20,7 +20,7 @@ const { data, status, error } = await useLazyFetch<PokemonProfile>(
         <h2>404 😭</h2>
         <p>Pokemon not found.</p>
     </div>
-    <section v-else-if="status === 'success' && data" class="mb-12 bg-neutral-200 p-6 dark:bg-neutral-900">
+    <section v-else-if="status === 'success' && data" class="pixel-border mb-12 bg-neutral-200 p-6 dark:bg-neutral-900">
         <div class="flex flex-col items-center gap-2 md:flex-row md:gap-8">
             <img :src="data.sprites.front_default" :alt="data.name" class="image-pixelated h-32 w-32" loading="lazy" />
             <div class="space-y-4 text-center md:text-start">
