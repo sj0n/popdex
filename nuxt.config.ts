@@ -22,7 +22,7 @@ export default defineNuxtConfig({
 
   css: ['@/assets/css/main.css'],
   modules: ['shadcn-nuxt', '@nuxtjs/tailwindcss'],
-  compatibilityDate: '2024-11-17',
+  compatibilityDate: '2025-02-10',
   runtimeConfig: {
     originAPI: process.env.NUXT_ORIGIN_API,
   }
