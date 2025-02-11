@@ -1,9 +1,0 @@
-
-tasks:
-  - name: 'Run a dev server'
-    init: pnpm install --shamefully-hoist
-    command: pnpm run dev
-vscode:
-  extensions:
-    - lukashass.volar
-    - ZixuanChen.vitest-explorer
