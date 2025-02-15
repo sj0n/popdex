@@ -50,11 +50,11 @@ const { data, status, error } = await useLazyFetch<PokemonProfile>(
             <p class="mb-2 text-xs font-bold dark:text-neutral-400">Types</p>
             <div class="flex flex-wrap justify-center gap-2 md:justify-start">
               <span
-                v-for="(data, index) of data.types"
+                v-for="(type, index) of data.types"
                 :key="index"
                 class="pixel-border w-full bg-teal-400 px-3 py-2 text-black md:w-[initial] dark:bg-teal-200"
               >
-                {{ titleCase(data.type.name) }}</span
+                {{ type }}</span
               >
             </div>
           </div>
@@ -64,11 +64,11 @@ const { data, status, error } = await useLazyFetch<PokemonProfile>(
             </p>
             <div class="flex flex-wrap justify-center gap-2 md:justify-start">
               <span
-                v-for="(data, index) of data.abilities"
+                v-for="(ability, index) of data.abilities"
                 :key="index"
                 class="pixel-border w-full bg-teal-400 px-3 py-2 text-black md:w-[initial] dark:bg-teal-200"
               >
-                {{ titleCase(data.ability.name) }}</span
+                {{ ability }}</span
               >
             </div>
           </div>

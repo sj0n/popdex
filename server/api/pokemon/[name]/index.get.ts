@@ -3,16 +3,8 @@ export interface PokemonProfile {
     name: string,
     height: number,
     weight: number,
-    types: {
-        type: {
-            name: string
-        };
-    }[],
-    abilities: {
-        ability: {
-            name: string
-        };
-    }[],
+    types: string[],
+    abilities: string[],
     sprites: {
         front_default: string
     }
