@@ -68,7 +68,7 @@ const { data, status, error } = await useLazyFetch<PokemonProfile>(
                 :key="index"
                 class="pixel-border w-full bg-teal-400 px-3 py-2 text-black md:w-[initial] dark:bg-teal-200"
               >
-                {{ titleCase(ability) }}</span
+                {{ ability }}</span
               >
             </div>
           </div>
