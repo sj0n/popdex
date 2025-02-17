@@ -33,7 +33,7 @@ const { data, status, error } = await useLazyFetch<PokemonProfile>(
       />
       <div class="space-y-4 text-center md:text-start">
         <h2 class="text-3xl font-semibold text-teal-400 dark:text-teal-200">
-          {{ titleCase(data.name) }}
+          {{ data.name }}
         </h2>
         <div
           class="grid grid-cols-[repeat(auto-fit,minmax(150px,1fr))] items-center gap-6 md:grid-cols-4"
