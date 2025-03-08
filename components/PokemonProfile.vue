@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import type { PokemonProfile } from "~/server/api/pokemon/[name]/index.get";
 import { Skeleton } from "./ui/skeleton";
-import { titleCase } from "~/libs/titleCase";
 
 const route = useRoute();
 const { data, status, error } = await useLazyFetch<PokemonProfile>(
