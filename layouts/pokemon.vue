@@ -1,5 +1,5 @@
 <template>
-  <div class="m-8 lg:mx-auto lg:max-w-6xl">
+  <div class="mx-8 py-12 lg:mx-auto lg:max-w-6xl">
     <Header />
     <slot />
   </div>
