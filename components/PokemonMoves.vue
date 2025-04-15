@@ -20,7 +20,7 @@ const versions = computed(() => Object.keys(data.value?.versions || []));
   </template>
   <template v-else-if="status === 'success' && data">
     <h2 class="mb-4 text-2xl font-semibold">Moves</h2>
-    <Tabs :default-value="versions[0]" class="mb-12">
+    <Tabs :default-value="versions[0]">
       <div class="relative shadow-md">
         <TabsList class="inline-flex w-full max-w-full overflow-x-auto">
           <TabsTrigger v-for="version in versions" :value="version">{{

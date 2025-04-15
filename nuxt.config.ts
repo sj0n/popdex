@@ -48,7 +48,7 @@ export default defineNuxtConfig({
     },
 
     css: ['@/assets/css/main.css'],
-    compatibilityDate: '2025-02-10',
+    compatibilityDate: '2025-04-01',
     runtimeConfig: {
         originAPI: process.env.NUXT_ORIGIN_API,
     },
