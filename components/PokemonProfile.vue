@@ -51,7 +51,7 @@ const { data, status, error } = await useLazyFetch<PokemonProfile>(
               <span
                 v-for="(type, index) of data.types"
                 :key="index"
-                class="pixel-border w-full bg-teal-400 px-3 py-2 text-black md:w-[initial] dark:bg-teal-200 font-bold"
+                class="pixel-border w-full bg-teal-400 px-3 py-2 font-bold text-black md:w-[initial] dark:bg-teal-200"
               >
                 {{ type }}</span
               >
@@ -65,7 +65,7 @@ const { data, status, error } = await useLazyFetch<PokemonProfile>(
               <span
                 v-for="(ability, index) of data.abilities"
                 :key="index"
-                class="pixel-border w-full bg-teal-400 px-3 py-2 text-black md:w-[initial] dark:bg-teal-200 font-bold"
+                class="pixel-border w-full bg-teal-400 px-3 py-2 font-bold text-black md:w-[initial] dark:bg-teal-200"
               >
                 {{ ability }}</span
               >

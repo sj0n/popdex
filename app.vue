@@ -1,8 +1,13 @@
 <script setup>
+const config = useRuntimeConfig();
+
 useHead({
   titleTemplate: (titleChunk) => {
     return titleChunk ? `PopDex - ${titleChunk}` : "PopDex - Lite PokeDex";
   },
+});
+useScriptUmamiAnalytics({
+  websiteId: config.public.umamiWebsiteId,
 });
 </script>
 
