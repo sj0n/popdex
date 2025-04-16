@@ -7,7 +7,6 @@ export default defineNuxtConfig({
         shim: false,
         strict: true
     },
-
     app: {
         head: {
             "meta": [
@@ -46,16 +45,20 @@ export default defineNuxtConfig({
             ]
         },
     },
-
     css: ['@/assets/css/main.css'],
-    compatibilityDate: '2025-04-01',
+    compatibilityDate: '2025-04-16',
     runtimeConfig: {
         originAPI: process.env.NUXT_ORIGIN_API,
+        public: {
+            umamiWebsiteId: '',
+
+        }
     },
     vite: {
         plugins: [tailwindcss()]
     },
     nitro: {
         preset: 'cloudflare_pages'
-    }
+    },
+    modules: ['@nuxt/scripts'],
 })
