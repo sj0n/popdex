@@ -51,14 +51,17 @@ export default defineNuxtConfig({
         originAPI: process.env.NUXT_ORIGIN_API,
         public: {
             umamiWebsiteId: '',
-
         }
     },
     vite: {
         plugins: [tailwindcss()]
     },
     nitro: {
-        preset: 'cloudflare_pages'
+        preset: 'cloudflare_module',
+        cloudflare: {
+            deployConfig: true,
+            nodeCompat: true
+        },
     },
     modules: ['@nuxt/scripts'],
 })
