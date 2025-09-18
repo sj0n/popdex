@@ -6,5 +6,9 @@
         "directory": ".output/public"
     },
     "workers_dev": true,
-    "preview_urls": true
+    "preview_urls": true,
+    "vars": {
+        "NUXT_ORIGIN_API": "https://popdex-worker-api.sjworker.workers.dev/api/pokemon/",
+        "NUXT_PUBLIC_UMAMI_WEBSITE_ID": "0725398c-8c89-44d4-9e50-779139b4bf6c"
+    }
 }
