@@ -16,7 +16,7 @@
         "head_sampling_rate": 1
     },
     "env": {
-        "preview": {
+        "staging": {
             "observability": {
                 "enabled": true,
                 "head_sampling_rate": 1
