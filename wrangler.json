@@ -12,8 +12,7 @@
         "NUXT_PUBLIC_UMAMI_WEBSITE_ID": "0725398c-8c89-44d4-9e50-779139b4bf6c"
     },
     "observability": {
-        "logs": {
-            "enabled": true
-        }
+        "enabled": true,
+        "head_sampling_rate": 1
     }
 }
