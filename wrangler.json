@@ -14,6 +14,7 @@
     "observability": {
         "enabled": true,
         "head_sampling_rate": 1
+<<<<<<< HEAD
     },
     "env": {
         "staging": {
@@ -22,5 +23,7 @@
                 "head_sampling_rate": 1
             }
         }
+=======
+>>>>>>> parent of 08c6f27 (add: log for preview build)
     }
 }
