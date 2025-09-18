@@ -1,8 +1,10 @@
 {
     "name": "popdex",
-    "compability_date": "2025-09-15",
+    "compatibility_date": "2025-09-15",
     "main": ".output/server/index.mjs",
     "assets": {
         "directory": ".output/public"
-    }
+    },
+    "workers_dev": true,
+    "preview_urls": true
 }
