@@ -58,6 +58,9 @@ export default defineNuxtConfig({
     },
     nitro: {
         preset: 'cloudflare_module',
+        cloudflare: {
+            deployConfig: false
+        }
     },
     modules: ['@nuxt/scripts'],
 })
