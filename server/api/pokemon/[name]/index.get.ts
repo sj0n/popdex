@@ -15,7 +15,6 @@ export default defineEventHandler(async (event) => {
     const name = getRouterParam(event, 'name');
     const requestEtag = getRequestHeader(event, 'if-none-match');
 
-    //debug log
     console.log('Request Debug:', {
         config: {
             originAPI: config.originAPI,

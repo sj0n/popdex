@@ -1,0 +1,30 @@
+{
+  "name": "popdex",
+  "compatibility_date": "2025-09-15",
+  "compatibility_flags": ["nodejs_compat"],
+  "main": ".output/server/index.mjs",
+  "assets": {
+    "directory": ".output/public"
+  },
+  "workers_dev": true,
+  "preview_urls": true,
+  "observability": {
+    "enabled": true,
+    "head_sampling_rate": 1
+  },
+  "env": {
+    "staging": {
+      "name": "popdex-staging",
+      "workers_dev": true,
+      "vars": {
+        "NUXT_ORIGIN_API": "https://popdex-worker-api.harizdan.xyz/api/pokemon/"
+      }
+    },
+    "production": {
+      "vars": {
+        "NUXT_ORIGIN_API": "https://popdex-worker-api.harizdan.xyz/api/pokemon/",
+        "NUXT_PUBLIC_UMAMI_WEBSITE_ID": "0725398c-8c89-44d4-9e50-779139b4bf6c"
+      }
+    }
+  }
+}
