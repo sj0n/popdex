@@ -24,7 +24,7 @@
       "vars": {
         "NUXT_ORIGIN_API": "https://popdex-worker-api.harizdan.xyz/api/pokemon/",
         "NUXT_PUBLIC_UMAMI_WEBSITE_ID": "0725398c-8c89-44d4-9e50-779139b4bf6c"
-      }
+      },"name": "popdex"
     }
   }
 }
