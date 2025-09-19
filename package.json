@@ -9,7 +9,9 @@
         "test": "vitest run",
         "test:watch": "vitest --watch --coverage",
         "test:ui": "vitest --ui",
-        "e2e": "bunx playwright test"
+        "e2e": "bunx playwright test",
+        "build:staging": "nuxt build --envName staging --dotenv .env.staging",
+        "deploy:staging": "wrangler deploy .output/server/index.mjs --assets .output/public -e staging"
     },
     "devDependencies": {
         "@nuxt/scripts": "0.11.5",
