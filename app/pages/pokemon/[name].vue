@@ -1,5 +1,6 @@
 <script setup lang="ts">
-import { titleCase } from "@/libs/titleCase";
+import { titleCase } from "@@/libs/titleCase";
+
 
 definePageMeta({
   layout: "pokemon",
