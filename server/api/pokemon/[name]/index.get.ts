@@ -11,31 +11,20 @@ export interface PokemonProfile {
 }
 
 export default defineEventHandler(async (event) => {
-    const config = useRuntimeConfig()
     const name = getRouterParam(event, 'name');
     const requestEtag = getRequestHeader(event, 'if-none-match');
 
-    console.log('Request Debug:', {
-        config: {
-            originAPI: config.originAPI,
-            fullUrl: `${config.originAPI}${name}`
-        },
-        headers: getHeaders(event),
-        params: { name }
-    });
-
     try {
-        const { _data: resp, headers } = await $fetch.raw<PokemonProfile>(`${config.originAPI}${name}`);
-
-        if (requestEtag === headers.get('etag')) {
-            setResponseHeader(event, "etag", headers.get('etag'));
+        const resp: Response = await event.context.cloudflare.env.pokemon.getPokemon(name);
+        if (requestEtag === resp.headers.get('etag')) {
+            setResponseHeader(event, "etag", resp.headers.get('etag'));
             setResponseStatus(event, 304)
             return;
         }
 
         setResponseHeaders(event, {
-            etag: headers.get('etag'),
-            "cache-control": headers.get('cache-control')
+            etag: resp.headers.get('etag'),
+            "cache-control": resp.headers.get('cache-control')
         });
 
         return resp;
