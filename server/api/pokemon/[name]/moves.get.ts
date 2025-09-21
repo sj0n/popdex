@@ -11,22 +11,20 @@ export interface PokemonMoves {
 }
 
 export default defineEventHandler(async (event) => {
-    const config = useRuntimeConfig()
     const name = getRouterParam(event, 'name');
     const requestEtag = getRequestHeader(event, 'if-none-match');
 
     try {
-        const { _data: resp, headers } = await $fetch.raw<PokemonMoves>(`${config.originAPI}${name}/moves`);
-
-        if (requestEtag === headers.get('etag')) {
-            setResponseHeader(event, "etag", headers.get('etag'));
+        const resp: Response = await event.context.cloudflare.env.pokemon.getPokemonMoves(name);
+        if (requestEtag === resp.headers.get('etag')) {
+            setResponseHeader(event, "etag", resp.headers.get('etag'));
             setResponseStatus(event, 304)
             return;
         }
-        
+
         setResponseHeaders(event, {
-            etag: headers.get('etag'),
-            "cache-control": headers.get('cache-control')
+            etag: resp.headers.get('etag'),
+            "cache-control": resp.headers.get('cache-control')
         });
 
         return resp;

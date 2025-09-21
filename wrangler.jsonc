@@ -1,7 +1,9 @@
 {
   "$schema": "./node_modules/wrangler/config-schema.json",
   "compatibility_date": "2025-09-15",
-  "compatibility_flags": ["nodejs_compat"],
+  "compatibility_flags": [
+    "nodejs_compat",
+  ],
   "main": ".output/server/index.mjs",
   "assets": {
     "directory": ".output/public"
@@ -15,17 +17,24 @@
   "env": {
     "staging": {
       "name": "popdex-staging",
-      "workers_dev": true,
-      "vars": {
-        "NUXT_ORIGIN_API": "https://popdex-worker-api.harizdan.xyz/api/pokemon/"
-      }
+      "services": [
+        {
+          "binding": "pokemon",
+          "service": "popdex-worker-api"
+        }
+      ]
     },
     "production": {
       "name": "popdex",
       "vars": {
-        "NUXT_ORIGIN_API": "https://popdex-worker-api.harizdan.xyz/api/pokemon/",
         "NUXT_PUBLIC_UMAMI_WEBSITE_ID": "0725398c-8c89-44d4-9e50-779139b4bf6c"
-      }
+      },
+      "services": [
+        {
+          "binding": "pokemon",
+          "service": "popdex-worker-api"
+        }
+      ]
     }
   }
 }
