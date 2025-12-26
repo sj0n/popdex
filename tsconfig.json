@@ -3,5 +3,10 @@
   "extends": "./.nuxt/tsconfig.json",
   "compilerOptions": {
     "noUnusedLocals": true,
+    "types": [
+      "bun",
+      "./worker-configuration.d.ts",
+      "node",
+    ],
   }
 }
