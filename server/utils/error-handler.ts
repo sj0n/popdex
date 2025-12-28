@@ -1,4 +1,4 @@
-import { ApiError } from './api-error'
+import { ApiError } from '../types/api-error'
 
 /**
  * Handles API errors and converts them to structured error responses
