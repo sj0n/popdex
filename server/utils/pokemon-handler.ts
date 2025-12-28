@@ -22,7 +22,8 @@ import {
   BadGatewayError,
   ServiceUnavailableError,
   GatewayTimeoutError,
-} from "./api-error";
+  type ErrorResponse
+} from "../types/api-error";
 import handleApiError from "./error-handler";
 
 /**
@@ -78,15 +79,14 @@ import handleApiError from "./error-handler";
  *   body: {
  *     message: "Pokemon not found",
  *     error: "NOT_FOUND",
- *     errorId: "a1b2c3d4-..."
  *   }
  * }
  */
 
-export default async function pokemonHandler(
+export default async function pokemonHandler<T>(
   event: H3Event<EventHandlerRequest>,
   fetchFn: (name: string) => Promise<Response>,
-) {
+): Promise<T | ErrorResponse | null> {
   try {
     const name = validateName(getRouterParam(event, "name"));
     const requestEtag = getRequestHeader(event, "if-none-match");
@@ -124,11 +124,19 @@ export default async function pokemonHandler(
       "content-type": "application/json",
     });
 
-    return resp;
+    const data: T = await resp.json();
+
+    return data;
   } catch (e) {
     const { statusCode, message, error } = handleApiError(e);
     setResponseHeader(event, "content-type", "application/json");
     setResponseStatus(event, statusCode);
-    return new Response(JSON.stringify({ message, error }));
+
+    const errorResponse: ErrorResponse = {
+      error: error,
+      message: message
+    };
+
+    return errorResponse;
   }
 }

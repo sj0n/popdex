@@ -107,3 +107,8 @@ export class GatewayTimeoutError extends ApiError {
         super(504, statusMessage, 'GATEWAY_TIMEOUT');
     }
 }
+
+export interface ErrorResponse {
+  error: string;
+  message: string;
+}

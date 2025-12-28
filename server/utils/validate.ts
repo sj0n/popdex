@@ -1,4 +1,4 @@
-import { BadRequestError } from "./api-error";
+import { BadRequestError } from "../types/api-error";
 
 export function validateName(name: string | undefined): string {
   if (!name) throw new BadRequestError("Pokemon name is required.");
