@@ -1,4 +1,3 @@
-<script setup></script>
 <template>
   <header
     class="flex-column mb-8 flex items-center gap-0 lg:flex-row lg:gap-12"

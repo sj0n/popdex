@@ -2,7 +2,7 @@
 import { Tabs, TabsTrigger, TabsList, TabsContent } from "./ui/tabs";
 import { Badge } from "./ui/badge";
 import { Skeleton } from "./ui/skeleton";
-import type { PokemonMoves } from "@@/server/api/pokemon/[name]/moves.get";
+import type { PokemonMoves } from "@@/server/types/pokemon-api";
 
 const route = useRoute();
 const { data, status } = await useLazyFetch<PokemonMoves>(
@@ -32,7 +32,7 @@ const versions = computed(() => Object.keys(data.value?.versions || []));
         v-for="(moves, version) of data?.versions"
         :value="version"
         :key="version"
-        class="max-h-[30rem] overflow-y-auto"
+        class="max-h-120 overflow-y-auto"
       >
         <ul class="grid grid-cols-1 gap-4 md:grid-cols-3">
           <li

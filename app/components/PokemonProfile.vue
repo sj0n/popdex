@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { PokemonProfile } from "@@/server/api/pokemon/[name]/index.get";
+import type { PokemonProfile } from "@@/server/types/pokemon-api";
 import { Skeleton } from "./ui/skeleton";
 
 const route = useRoute();
