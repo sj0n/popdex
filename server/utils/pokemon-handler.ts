@@ -1,10 +1,5 @@
 import {
-  getRequestHeader,
-  getRouterParam,
   type H3Event,
-  setResponseHeader,
-  setResponseHeaders,
-  setResponseStatus,
   type EventHandlerRequest,
 } from "h3";
 import { validateName } from "./validate";
@@ -86,7 +81,7 @@ import handleApiError from "./error-handler";
 export default async function pokemonHandler<T>(
   event: H3Event<EventHandlerRequest>,
   fetchFn: (name: string) => Promise<Response>,
-): Promise<T | ErrorResponse | null> {
+): Promise<T | ErrorResponse | void> {
   try {
     const name = validateName(getRouterParam(event, "name"));
     const requestEtag = getRequestHeader(event, "if-none-match");
@@ -114,8 +109,7 @@ export default async function pokemonHandler<T>(
 
     if (requestEtag === resp.headers.get("etag")) {
       setResponseHeader(event, "etag", resp.headers.get("etag"));
-      setResponseStatus(event, 304);
-      return null;
+      return sendNoContent(event, 304);
     }
 
     setResponseHeaders(event, {

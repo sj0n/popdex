@@ -4,6 +4,7 @@
   "compatibility_flags": [
     "nodejs_compat",
   ],
+  "name": "popdex-app",
   "main": ".output/server/index.mjs",
   "assets": {
     "directory": ".output/public"

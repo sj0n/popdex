@@ -1,1 +1,3 @@
-export { default as Skeleton } from './Skeleton.vue'
+import Skeleton from "./Skeleton.vue";
+
+export { Skeleton };

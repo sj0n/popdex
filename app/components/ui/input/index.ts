@@ -1,1 +1,2 @@
-export { default as Input } from './Input.vue'
+import Input from "./Input.vue";
+export { Input };

@@ -14,3 +14,6 @@ dist
 /playwright-report/
 /playwright/.cache/
 /coverage/
+.crush
+.amp
+.agents

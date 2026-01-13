@@ -1,5 +1,6 @@
 import type { PlaywrightTestConfig } from '@playwright/test';
 import { devices } from '@playwright/test';
+import path from 'path';
 
 /**
  * Read environment variables from file.
@@ -12,6 +13,14 @@ import { devices } from '@playwright/test';
  */
 const config: PlaywrightTestConfig = {
     testDir: './tests/e2e',
+    /* Configure TypeScript path aliases */
+    webServer: {
+      command: 'npm run dev',
+      port: 3000,
+      env: {
+        TS_NODE_PROJECT: path.resolve(__dirname, 'tsconfig.json'),
+      },
+    },
     /* Maximum time one test can run for. */
     timeout: 30 * 1000,
     expect: {
@@ -96,12 +105,6 @@ const config: PlaywrightTestConfig = {
 
     /* Folder for test artifacts such as screenshots, videos, traces, etc. */
     // outputDir: 'test-results/',
-
-    /* Run your local dev server before starting the tests */
-    // webServer: {
-    //   command: 'npm run start',
-    //   port: 3000,
-    // },
 };
 
 export default config;
