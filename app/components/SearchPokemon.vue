@@ -24,6 +24,7 @@ const handleSubmit = async () => {
     <Input
       type="text"
       id="name"
+      data-testid="search-input"
       placeholder="Search a pokemon, e.g. pikachu"
       v-model="name"
       class="max-w-sm focus:shadow-lg focus:shadow-teal-200"
