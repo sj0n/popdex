@@ -7,9 +7,6 @@ import type { PokemonSpawnLocation } from "@@/server/types/pokemon-api";
 const route = useRoute();
 const { data, status } = await useLazyFetch<PokemonSpawnLocation>(
   `/api/pokemon/${route.params.name}/locations`,
-  {
-    cache: "no-cache",
-  },
 );
 
 const versions = computed(() => Object.keys(data.value?.versions || []));

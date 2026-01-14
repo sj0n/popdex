@@ -7,9 +7,6 @@ import type { PokemonMoves } from "@@/server/types/pokemon-api";
 const route = useRoute();
 const { data, status } = await useLazyFetch<PokemonMoves>(
   `/api/pokemon/${route.params.name}/moves`,
-  {
-    cache: "no-cache",
-  },
 );
 const versions = computed(() => Object.keys(data.value?.versions || []));
 </script>

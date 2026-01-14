@@ -5,9 +5,6 @@ import { Skeleton } from "./ui/skeleton";
 const route = useRoute();
 const { data, status, error } = await useLazyFetch<PokemonProfile>(
   `/api/pokemon/${route.params.name}`,
-  {
-    cache: "no-cache",
-  },
 );
 </script>
 
