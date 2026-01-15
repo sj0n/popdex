@@ -31,7 +31,7 @@ const versions = computed(() => Object.keys(data.value?.versions || []));
         :key="version"
         class="max-h-120 overflow-y-auto"
       >
-        <ul class="grid grid-cols-1 gap-4 md:grid-cols-3">
+        <ul class="grid grid-cols-1 gap-4 md:grid-cols-3" data-testid="moves">
           <li
             v-for="move of moves"
             :key="move.name"
