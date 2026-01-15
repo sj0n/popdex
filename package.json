@@ -4,20 +4,17 @@
     "scripts": {
         "build": "nuxt build",
         "dev": "nuxt dev",
-        "wrangler:dev": "bunx wrangler dev",
+        "wrangler:dev": "bun run build && bunx wrangler dev",
         "generate": "nuxt generate",
         "preview": "nuxt preview",
-        "test:nuxt": "vitest run --project nuxt",
-        "test:watch": "vitest --watch --coverage",
-        "e2e": "bunx playwright test",
+        "test:nuxt": "vitest --project nuxt",
+        "test:e2e": "vitest --project e2e",
         "deploy:staging": "wrangler deploy -e staging",
         "deploy": "wrangler deploy -e production --minify"
     },
     "devDependencies": {
-        "@axe-core/playwright": "^4.11.0",
         "@nuxt/scripts": "0.13.2",
         "@nuxt/test-utils": "^3.23.0",
-        "@playwright/test": "^1.57.0",
         "@unhead/vue": "^2.1.1",
         "@vitejs/plugin-vue": "^6.0.3",
         "@vitest/coverage-v8": "^4.0.16",

@@ -17,6 +17,7 @@ const { data, status, error } = await useLazyFetch<PokemonProfile>(
     <p>Pokemon not found.</p>
   </div>
   <section
+    data-testid="profile"
     v-else-if="status === 'success' && data"
     class="pixel-border mb-12 bg-neutral-200 p-6 dark:bg-neutral-900"
   >
