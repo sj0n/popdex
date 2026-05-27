@@ -3,11 +3,7 @@
   "extends": "./.nuxt/tsconfig.json",
   "compilerOptions": {
     "noUnusedLocals": true,
-    "typeRoots": [
-      ".",
-      "./node_modules/@types",
-      "./node_modules"
-    ],
-    "types": ["bun", "worker-configuration", "node", "vitest/globals"],
-  },  
+    "typeRoots": [".", "./node_modules/@types", "./node_modules"],
+    "types": ["bun", "worker-configuration", "node", "vitest/globals"]
+  }
 }

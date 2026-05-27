@@ -12,7 +12,8 @@ export default defineNuxtConfig({
       meta: [
         {
           name: "description",
-          content: "A simple PokéDex where you can find information about Pokémon such as spawn locations.",
+          content:
+            "A simple PokéDex where you can find information about Pokémon such as spawn locations.",
         },
       ],
       charset: "utf-8",

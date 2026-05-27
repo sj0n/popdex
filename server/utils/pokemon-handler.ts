@@ -1,7 +1,4 @@
-import {
-  type H3Event,
-  type EventHandlerRequest,
-} from "h3";
+import { type H3Event, type EventHandlerRequest } from "h3";
 import { validateName } from "./validate";
 import {
   BadRequestError,
@@ -17,7 +14,7 @@ import {
   BadGatewayError,
   ServiceUnavailableError,
   GatewayTimeoutError,
-  type ErrorResponse
+  type ErrorResponse,
 } from "../types/api-error";
 import handleApiError from "./error-handler";
 
@@ -89,21 +86,36 @@ export default async function pokemonHandler<T>(
 
     if (!resp.ok) {
       switch (resp.status) {
-        case 400: throw new BadRequestError();
-        case 401: throw new UnauthorizedError();
-        case 403: throw new ForbiddenError();
-        case 404: throw new NotFoundError();
-        case 405: throw new MethodNotAllowedError();
-        case 408: throw new RequestTimeoutError();
-        case 413: throw new PayloadTooLargeError();
-        case 422: throw new UnprocessableEntityError();
-        case 429: throw new TooManyRequestsError();
-        case 500: throw new InternalServerError();
-        case 502: throw new BadGatewayError();
-        case 503: throw new ServiceUnavailableError();
-        case 504: throw new GatewayTimeoutError();
+        case 400:
+          throw new BadRequestError();
+        case 401:
+          throw new UnauthorizedError();
+        case 403:
+          throw new ForbiddenError();
+        case 404:
+          throw new NotFoundError();
+        case 405:
+          throw new MethodNotAllowedError();
+        case 408:
+          throw new RequestTimeoutError();
+        case 413:
+          throw new PayloadTooLargeError();
+        case 422:
+          throw new UnprocessableEntityError();
+        case 429:
+          throw new TooManyRequestsError();
+        case 500:
+          throw new InternalServerError();
+        case 502:
+          throw new BadGatewayError();
+        case 503:
+          throw new ServiceUnavailableError();
+        case 504:
+          throw new GatewayTimeoutError();
         default:
-          throw new InternalServerError(`Unexpected HTTP status: ${resp.status}`);
+          throw new InternalServerError(
+            `Unexpected HTTP status: ${resp.status}`,
+          );
       }
     }
 
@@ -128,7 +140,7 @@ export default async function pokemonHandler<T>(
 
     const errorResponse: ErrorResponse = {
       error: error,
-      message: message
+      message: message,
     };
 
     return errorResponse;
