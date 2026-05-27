@@ -1,4 +1,4 @@
-import { ApiError } from '../types/api-error'
+import { ApiError } from "../types/api-error";
 
 /**
  * Handles API errors and converts them to structured error responses
@@ -14,12 +14,12 @@ export default function handleApiError(error: unknown) {
   const errorLog = {
     errorId,
     timestamp,
-    type: error instanceof ApiError ? 'ApiError' : 'UnexpectedError',
+    type: error instanceof ApiError ? "ApiError" : "UnexpectedError",
     message: error instanceof Error ? error.message : String(error),
     stack: error instanceof Error ? error.stack : undefined,
   };
 
-  console.error('[API_ERROR]', JSON.stringify(errorLog, null, 2));
+  console.error("[API_ERROR]", JSON.stringify(errorLog, null, 2));
 
   if (error instanceof ApiError) {
     return {

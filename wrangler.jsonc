@@ -1,25 +1,23 @@
 {
   "$schema": "./node_modules/wrangler/config-schema.json",
   "compatibility_date": "2025-09-15",
-  "compatibility_flags": [
-    "nodejs_compat",
-  ],
+  "compatibility_flags": ["nodejs_compat"],
   "name": "popdex-app",
   "main": ".output/server/index.mjs",
   "assets": {
-    "directory": ".output/public"
+    "directory": ".output/public",
   },
   "workers_dev": true,
   "preview_urls": true,
   "observability": {
     "enabled": true,
-    "head_sampling_rate": 1
+    "head_sampling_rate": 1,
   },
   "services": [
     {
       "binding": "pokemon",
-      "service": "popdex-worker-api"
-    }
+      "service": "popdex-worker-api",
+    },
   ],
   "env": {
     "staging": {
@@ -27,21 +25,21 @@
       "services": [
         {
           "binding": "pokemon",
-          "service": "popdex-worker-api"
-        }
-      ]
+          "service": "popdex-worker-api",
+        },
+      ],
     },
     "production": {
       "name": "popdex",
       "vars": {
-        "NUXT_PUBLIC_UMAMI_WEBSITE_ID": "0725398c-8c89-44d4-9e50-779139b4bf6c"
+        "NUXT_PUBLIC_UMAMI_WEBSITE_ID": "0725398c-8c89-44d4-9e50-779139b4bf6c",
       },
       "services": [
         {
           "binding": "pokemon",
-          "service": "popdex-worker-api"
-        }
-      ]
-    }
-  }
+          "service": "popdex-worker-api",
+        },
+      ],
+    },
+  },
 }

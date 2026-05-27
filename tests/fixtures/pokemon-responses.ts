@@ -617,7 +617,7 @@ export const mockMovesData = {
 
 export function createCachedResponse(
   data: unknown,
-  etag: string = '"pikachu-v1"'
+  etag: string = '"pikachu-v1"',
 ) {
   return {
     data,
@@ -634,7 +634,7 @@ export function createMockResponse(
   options: {
     status?: number;
     headers?: Record<string, string>;
-  } = {}
+  } = {},
 ) {
   const { status = 200, headers = {} } = options;
   const response = new Response(JSON.stringify(data), {

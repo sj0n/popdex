@@ -27,21 +27,27 @@ pnpm install --shamefully-hoist
 #bun
 bun install
 ```
+
 <br>
 
 ## Component testing
+
 ```
 bun run test:nuxt
-```  
+```
+
 <br>
 
 ## E2E Testing
+
 ```
 bun run wrangler:dev && bun run --project e2e
 ```
+
 <br>
 
 ## Util test
+
 ```
 bun test tests/server/utils
 ```

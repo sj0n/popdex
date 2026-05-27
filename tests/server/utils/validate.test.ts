@@ -1,5 +1,5 @@
-import { describe, expect, it } from "vitest"
-import { validateName } from "../../../server/utils/validate"
+import { describe, expect, it } from "vitest";
+import { validateName } from "../../../server/utils/validate";
 import { BadRequestError } from "../../../server/types/api-error";
 
 describe("validate", () => {
@@ -28,13 +28,13 @@ describe("validate", () => {
     expect(() => validateName(undefined)).toThrow(BadRequestError);
   });
 
-  it('should reject names shorter than 2 characters', () => {
-    expect(() => validateName('a')).toThrow(BadRequestError);
+  it("should reject names shorter than 2 characters", () => {
+    expect(() => validateName("a")).toThrow(BadRequestError);
   });
 
-  it('should reject invalid characters', () => {
-    expect(() => validateName('pika@chu')).toThrow(BadRequestError);
-    expect(() => validateName('pika chu')).toThrow(BadRequestError);
-    expect(() => validateName('pika_chu')).toThrow(BadRequestError);
+  it("should reject invalid characters", () => {
+    expect(() => validateName("pika@chu")).toThrow(BadRequestError);
+    expect(() => validateName("pika chu")).toThrow(BadRequestError);
+    expect(() => validateName("pika_chu")).toThrow(BadRequestError);
   });
 });
