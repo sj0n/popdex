@@ -123,6 +123,7 @@ describe("Pokemon API Unit Tests", () => {
     let errResp: ErrorResponse = {
       error: errObject.code,
       message: errObject.message,
+      errorId: "test-error-id",
     };
     let worker = createMockPokemonWorker({
       pokemon: async () => {

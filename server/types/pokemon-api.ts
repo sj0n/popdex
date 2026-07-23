@@ -12,25 +12,21 @@ export interface PokemonProfile {
 
 export interface PokemonSpawnLocation {
   versions: {
-    [index: string]: [
-      {
-        location_name: string;
-        min_level: number;
-        max_level: number;
-        method: string;
-      },
-    ];
+    [index: string]: {
+      location_name: string;
+      min_level: number;
+      max_level: number;
+      method: string;
+    }[];
   };
 }
 
 export interface PokemonMoves {
   versions: {
-    [index: string]: [
-      {
-        name: string;
-        level: number;
-        learn_method: string;
-      },
-    ];
+    [index: string]: {
+      name: string;
+      level: number;
+      learn_method: string;
+    }[];
   };
 }

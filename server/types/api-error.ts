@@ -5,7 +5,7 @@
  * @property {number} statusCode - HTTP status code for the error
  * @property {string} statusMessage - Human-readable error message
  * @property {string} code - Machine-readable error code for programmatic handling
- * @property {string} name - Error class name (always "ApiError" for this base class)
+ * @property {string} name - Error class name (reflects the actual subclass, e.g. "NotFoundError")
  *
  * @example
  * // Creating a custom error type
@@ -22,7 +22,7 @@ export class ApiError extends Error {
     public code: string,
   ) {
     super(statusMessage);
-    this.name = "ApiError";
+    this.name = new.target.name;
 
     if (Error.captureStackTrace) {
       Error.captureStackTrace(this, ApiError);
@@ -111,4 +111,5 @@ export class GatewayTimeoutError extends ApiError {
 export interface ErrorResponse {
   error: string;
   message: string;
+  errorId: string;
 }

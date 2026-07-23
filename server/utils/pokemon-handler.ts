@@ -31,10 +31,10 @@ import handleApiError from "./error-handler";
  * @param event - H3 event object containing request context, parameters, and Cloudflare bindings
  * @param fetchFn - Function that calls the external Pokemon API with the pokemon name
  *
- * @returns Promise<Response> - API response with proper headers, status code, and body
- *   - Success: Response object with Pokemon data and cache headers
- *   - Error: Response object with structured error format and appropriate status code
- *   - Cache Hit: null (for 304 Not Modified responses)
+ * @returns Promise<T | ErrorResponse | void> - API response with proper headers, status code, and body
+ *   - Success: T - the parsed Pokemon data with cache headers
+ *   - Error: ErrorResponse - structured error format with appropriate status code
+ *   - Cache Hit: void - 304 Not Modified response (via sendNoContent)
  *
  * @throws {BadRequestError} - When pokemon name validation fails
  * @throws {NotFoundError} - When Pokemon is not found in upstream API
@@ -119,28 +119,38 @@ export default async function pokemonHandler<T>(
       }
     }
 
-    if (requestEtag === resp.headers.get("etag")) {
-      setResponseHeader(event, "etag", resp.headers.get("etag"));
+    const upstreamEtag = resp.headers.get("etag");
+    const upstreamCacheControl = resp.headers.get("cache-control");
+
+    if (requestEtag === upstreamEtag) {
+      setResponseHeader(event, "etag", upstreamEtag);
       return sendNoContent(event, 304);
     }
 
-    setResponseHeaders(event, {
-      etag: resp.headers.get("etag"),
-      "cache-control": resp.headers.get("cache-control"),
+    const responseHeaders: Record<string, string> = {
       "content-type": "application/json",
-    });
+      "cache-control": upstreamCacheControl ?? "public, max-age=3600",
+    };
+    if (upstreamEtag) {
+      responseHeaders.etag = upstreamEtag;
+    }
+    setResponseHeaders(event, responseHeaders);
 
     const data: T = await resp.json();
 
     return data;
   } catch (e) {
-    const { statusCode, message, error } = handleApiError(e);
-    setResponseHeader(event, "content-type", "application/json");
+    const { statusCode, message, error, errorId } = handleApiError(e);
+    setResponseHeaders(event, {
+      "content-type": "application/json",
+      "cache-control": "no-store",
+    });
     setResponseStatus(event, statusCode);
 
     const errorResponse: ErrorResponse = {
       error: error,
       message: message,
+      errorId: errorId,
     };
 
     return errorResponse;

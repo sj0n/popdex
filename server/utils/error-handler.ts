@@ -26,12 +26,14 @@ export default function handleApiError(error: unknown) {
       statusCode: error.statusCode,
       message: error.message,
       error: error.code,
+      errorId,
     };
   }
 
   return {
     statusCode: 500,
     message: "Internal Server Error",
-    error: "INTERNAL_SERVER_ERROR",
+    error: "INTERNAL_ERROR",
+    errorId,
   };
 }
