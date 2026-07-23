@@ -1,5 +1,5 @@
-import { describe, it, expect } from "bun:test";
-import { titleCase } from "../libs/titleCase";
+import { describe, it, expect } from "vitest";
+import { titleCase } from "../../../libs/titleCase";
 
 describe.concurrent("Title Case", () => {
   it("should capitalize the first letter of a word", () => {

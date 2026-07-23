@@ -1,4 +1,4 @@
-import { describe, it, expect } from "bun:test";
+import { describe, it, expect } from "vitest";
 import {
   ApiError,
   NotFoundError,
@@ -14,7 +14,7 @@ import {
   BadGatewayError,
   ServiceUnavailableError,
   GatewayTimeoutError,
-} from "@root/server/types/api-error";
+} from "../../../server/types/api-error";
 
 describe("API Error Classes", () => {
   describe("Base ApiError class", () => {
