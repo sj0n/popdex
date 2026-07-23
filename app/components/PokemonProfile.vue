@@ -1,11 +1,12 @@
 <script setup lang="ts">
 import type { PokemonProfile } from "@@/server/types/pokemon-api";
+import type { AsyncDataRequestStatus, NuxtError } from "#app";
 import { Skeleton } from "./ui/skeleton";
 
 const props = defineProps<{
-  data: PokemonProfile | null;
-  status: "idle" | "pending" | "success" | "error";
-  error: { statusCode?: number; message?: string } | null;
+  data: PokemonProfile | undefined;
+  status: AsyncDataRequestStatus;
+  error: NuxtError | undefined;
 }>();
 </script>
 

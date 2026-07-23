@@ -3,10 +3,11 @@ import { Tabs, TabsTrigger, TabsList, TabsContent } from "./ui/tabs";
 import { Badge } from "./ui/badge";
 import { Skeleton } from "./ui/skeleton";
 import type { PokemonSpawnLocation } from "@@/server/types/pokemon-api";
+import type { AsyncDataRequestStatus } from "#app";
 
 const props = defineProps<{
-  data: PokemonSpawnLocation | null;
-  status: "idle" | "pending" | "success" | "error";
+  data: PokemonSpawnLocation | undefined;
+  status: AsyncDataRequestStatus;
 }>();
 
 const versions = computed(() => Object.keys(props.data?.versions || {}));

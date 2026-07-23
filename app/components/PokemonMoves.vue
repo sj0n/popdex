@@ -3,10 +3,11 @@ import { Tabs, TabsTrigger, TabsList, TabsContent } from "./ui/tabs";
 import { Badge } from "./ui/badge";
 import { Skeleton } from "./ui/skeleton";
 import type { PokemonMoves } from "@@/server/types/pokemon-api";
+import type { AsyncDataRequestStatus } from "#app";
 
 const props = defineProps<{
-  data: PokemonMoves | null;
-  status: "idle" | "pending" | "success" | "error";
+  data: PokemonMoves | undefined;
+  status: AsyncDataRequestStatus;
 }>();
 
 const versions = computed(() => Object.keys(props.data?.versions || {}));
