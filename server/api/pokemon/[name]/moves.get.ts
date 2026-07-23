@@ -1,8 +1,4 @@
-import pokemonHandler from "@@/server/utils/pokemon-handler";
-import createPokemonClient from "@@/server/client/pokemon-worker";
+import { definePokemonEndpoint } from "@@/server/utils/define-pokemon-endpoint";
 import type { PokemonMoves } from "@@/server/types/pokemon-api";
 
-export default defineEventHandler(async (event) => {
-  const client = createPokemonClient(event.context.cloudflare.env.pokemon);
-  return await pokemonHandler<PokemonMoves>(event, client.getPokemonMoves);
-});
+export default definePokemonEndpoint<PokemonMoves>("getPokemonMoves");
