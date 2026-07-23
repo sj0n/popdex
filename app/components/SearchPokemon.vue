@@ -5,12 +5,11 @@ defineProps<{
   inline?: boolean;
 }>();
 
-let name = ref("");
-const { onLoaded } = useScriptUmamiAnalytics();
+const name = ref("");
+const { load } = useScriptUmamiAnalytics();
 const handleSubmit = async () => {
-  onLoaded((umami) => {
-    umami.track("search-pokemon", { name: name.value });
-  });
+  const umami = await load();
+  umami.track("search-pokemon", { name: name.value });
   await navigateTo(`/pokemon/${name.value.toLowerCase()}`);
 };
 </script>

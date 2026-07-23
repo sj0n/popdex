@@ -3,6 +3,9 @@ import { mountSuspended, mockNuxtImport } from "@nuxt/test-utils/runtime";
 import PokemonSearch from "@@/app/components/SearchPokemon.vue";
 
 mockNuxtImport("navigateTo", () => vi.fn());
+mockNuxtImport("useScriptUmamiAnalytics", () => () => ({
+  load: () => Promise.resolve({ track: vi.fn() }),
+}));
 
 describe("Homepage Pokemon Search component", () => {
   it("renders the pokemon search component", async () => {
@@ -27,7 +30,7 @@ describe("Homepage Pokemon Search component", () => {
     const form = wrapper.find("form");
 
     await inputElement.setValue("pikachu");
-    form.trigger("submit");
+    await form.trigger("submit");
 
     expect(navigateTo).toHaveBeenCalledWith("/pokemon/pikachu");
   });

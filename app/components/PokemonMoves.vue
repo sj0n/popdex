@@ -4,23 +4,28 @@ import { Badge } from "./ui/badge";
 import { Skeleton } from "./ui/skeleton";
 import type { PokemonMoves } from "@@/server/types/pokemon-api";
 
-const route = useRoute();
-const { data, status } = await useLazyFetch<PokemonMoves>(
-  `/api/pokemon/${route.params.name}/moves`,
-);
-const versions = computed(() => Object.keys(data.value?.versions || []));
+const props = defineProps<{
+  data: PokemonMoves | null;
+  status: "idle" | "pending" | "success" | "error";
+}>();
+
+const versions = computed(() => Object.keys(props.data?.versions || {}));
 </script>
 
 <template>
   <template v-if="status === 'pending'">
     <Skeleton class="mb-12 h-32 w-full" />
   </template>
+  <template v-else-if="status === 'error'">
+    <h2 class="mb-4 text-2xl font-semibold">Moves</h2>
+    <p>Couldn't load moves. Try again later.</p>
+  </template>
   <template v-else-if="status === 'success' && data">
     <h2 class="mb-4 text-2xl font-semibold">Moves</h2>
     <Tabs :default-value="versions[0]">
       <div class="relative shadow-md">
         <TabsList class="inline-flex w-full max-w-full overflow-x-auto">
-          <TabsTrigger v-for="version in versions" :value="version">{{
+          <TabsTrigger v-for="version in versions" :value="version" :key="version">{{
             version
           }}</TabsTrigger>
         </TabsList>
@@ -34,7 +39,7 @@ const versions = computed(() => Object.keys(data.value?.versions || []));
         <ul class="grid grid-cols-1 gap-4 md:grid-cols-3" data-testid="moves">
           <li
             v-for="move of moves"
-            :key="move.name"
+            :key="`${move.name}-${move.learn_method}-${move.level}`"
             class="pixel-border mt-4 rounded-md bg-teal-400 p-4 shadow-md dark:bg-teal-200 dark:text-neutral-800"
           >
             <h3 class="font-semibold">{{ move.name }}</h3>

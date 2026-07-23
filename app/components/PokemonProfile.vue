@@ -2,10 +2,11 @@
 import type { PokemonProfile } from "@@/server/types/pokemon-api";
 import { Skeleton } from "./ui/skeleton";
 
-const route = useRoute();
-const { data, status, error } = await useLazyFetch<PokemonProfile>(
-  `/api/pokemon/${route.params.name}`,
-);
+const props = defineProps<{
+  data: PokemonProfile | null;
+  status: "idle" | "pending" | "success" | "error";
+  error: { statusCode?: number; message?: string } | null;
+}>();
 </script>
 
 <template>
@@ -15,6 +16,10 @@ const { data, status, error } = await useLazyFetch<PokemonProfile>(
   <div v-else-if="status === 'error' && error?.statusCode === 404" class="mt-2">
     <h2>404 😭</h2>
     <p>Pokemon not found.</p>
+  </div>
+  <div v-else-if="status === 'error'" class="mt-2">
+    <h2>Something went wrong 😵</h2>
+    <p>Couldn't load this Pokémon. Try again later.</p>
   </div>
   <section
     data-testid="profile"
