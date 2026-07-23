@@ -1,12 +1,13 @@
 <script setup lang="ts">
 import type { PokemonProfile } from "@@/server/types/pokemon-api";
-import type { AsyncDataRequestStatus, NuxtError } from "#app";
+import type { FetchError } from "ofetch";
+import type { AsyncDataRequestStatus } from "#app";
 import { Skeleton } from "./ui/skeleton";
 
 const props = defineProps<{
   data: PokemonProfile | undefined;
   status: AsyncDataRequestStatus;
-  error: NuxtError | undefined;
+  error: FetchError | undefined;
 }>();
 </script>
 
