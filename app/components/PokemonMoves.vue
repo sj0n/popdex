@@ -3,11 +3,13 @@ import { Tabs, TabsTrigger, TabsList, TabsContent } from "./ui/tabs";
 import { Badge } from "./ui/badge";
 import { Skeleton } from "./ui/skeleton";
 import type { PokemonMoves } from "@@/server/types/pokemon-api";
+import type { FetchError } from "ofetch";
 import type { AsyncDataRequestStatus } from "#app";
 
 const props = defineProps<{
   data: PokemonMoves | undefined;
   status: AsyncDataRequestStatus;
+  error: FetchError | undefined;
 }>();
 
 const versions = computed(() => Object.keys(props.data?.versions || {}));
@@ -16,6 +18,10 @@ const versions = computed(() => Object.keys(props.data?.versions || {}));
 <template>
   <template v-if="status === 'pending'">
     <Skeleton class="mb-12 h-32 w-full" />
+  </template>
+  <template v-else-if="status === 'error' && error?.statusCode === 404">
+    <h2 class="mb-4 text-2xl font-semibold">Moves</h2>
+    <p>No moves data found for this Pokémon.</p>
   </template>
   <template v-else-if="status === 'error'">
     <h2 class="mb-4 text-2xl font-semibold">Moves</h2>
@@ -26,9 +32,12 @@ const versions = computed(() => Object.keys(props.data?.versions || {}));
     <Tabs :default-value="versions[0]">
       <div class="relative shadow-md">
         <TabsList class="inline-flex w-full max-w-full overflow-x-auto">
-          <TabsTrigger v-for="version in versions" :value="version" :key="version">{{
-            version
-          }}</TabsTrigger>
+          <TabsTrigger
+            v-for="version in versions"
+            :value="version"
+            :key="version"
+            >{{ version }}</TabsTrigger
+          >
         </TabsList>
       </div>
       <TabsContent

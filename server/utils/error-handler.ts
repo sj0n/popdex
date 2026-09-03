@@ -16,7 +16,7 @@ export default function handleApiError(error: unknown) {
     timestamp,
     type: error instanceof ApiError ? "ApiError" : "UnexpectedError",
     message: error instanceof Error ? error.message : String(error),
-    stack: error instanceof Error ? error.stack : undefined,
+    stack: import.meta.dev && error instanceof Error ? error.stack : undefined,
   };
 
   console.error("[API_ERROR]", JSON.stringify(errorLog, null, 2));

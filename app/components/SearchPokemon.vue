@@ -8,9 +8,11 @@ defineProps<{
 const name = ref("");
 const { load } = useScriptUmamiAnalytics();
 const handleSubmit = async () => {
+  const trimmed = name.value.trim();
+  if (!trimmed) return;
   const umami = await load();
-  umami.track("search-pokemon", { name: name.value });
-  await navigateTo(`/pokemon/${name.value.toLowerCase()}`);
+  umami.track("search-pokemon", { name: trimmed });
+  await navigateTo(`/pokemon/${trimmed.toLowerCase()}`);
 };
 </script>
 <template>

@@ -13,9 +13,7 @@ import type {
  * them down as props, making the presentational components fetch-agnostic.
  */
 export function usePokemonData(name: () => string) {
-  const profile = useLazyFetch<PokemonProfile>(
-    () => `/api/pokemon/${name()}`,
-  );
+  const profile = useLazyFetch<PokemonProfile>(() => `/api/pokemon/${name()}`);
   const locations = useLazyFetch<PokemonSpawnLocation>(
     () => `/api/pokemon/${name()}/locations`,
   );
@@ -29,7 +27,9 @@ export function usePokemonData(name: () => string) {
     profileError: profile.error,
     locationsData: locations.data,
     locationsStatus: locations.status,
+    locationsError: locations.error,
     movesData: moves.data,
     movesStatus: moves.status,
+    movesError: moves.error,
   };
 }

@@ -33,7 +33,6 @@ const props = defineProps<{
         :src="data.sprites.front_default"
         :alt="data.name"
         class="image-pixelated h-32 w-32"
-        loading="lazy"
       />
       <div class="space-y-4 text-center md:text-start">
         <h2 class="text-3xl font-semibold text-teal-400 dark:text-teal-200">

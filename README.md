@@ -6,7 +6,7 @@ A simple Pokédex web application.
 
 ## Tools
 
-- [NuxtJS](https://v3.nuxtjs.org)
+- [NuxtJS](https://nuxt.com)
 - [PokéAPI](https://pokeapi.co/)
 - [Vitest](https://vitest.dev)
 
