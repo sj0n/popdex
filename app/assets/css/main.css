@@ -110,7 +110,11 @@ html {
 }
 
 body {
-  font-family: "04b03", monospace;
+  font-family: "04b03", ui-monospace, SFMono-Regular, Menlo, monospace;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-image: radial-gradient(rgb(0 0 0 / 0.06) 1px, transparent 1.6px);
+  background-size: 16px 16px;
 }
 
 .pixel-border {
@@ -132,6 +136,120 @@ body {
 
 .image-pixelated {
   image-rendering: pixelated;
+}
+
+.pressable {
+  transition:
+    transform 200ms cubic-bezier(0.2, 0, 0, 1),
+    background-color 200ms ease-out,
+    color 200ms ease-out;
+}
+
+.pressable:active {
+  transform: translateY(1px) scale(0.98);
+}
+
+.dex-panel {
+  background-color: var(--color-neutral-200);
+  filter: drop-shadow(8px 8px 0 rgb(20 184 166 / 0.18));
+}
+
+.dex-screen {
+  background-color: var(--color-neutral-50);
+  color: var(--color-neutral-950);
+  background-image: radial-gradient(rgb(0 0 0 / 0.06) 1px, transparent 1.5px);
+  background-size: 8px 8px;
+}
+
+@media (prefers-color-scheme: dark) {
+  body {
+    background-image: radial-gradient(
+      rgb(255 255 255 / 0.055) 1px,
+      transparent 1.6px
+    );
+  }
+
+  .dex-panel {
+    background-color: var(--color-neutral-900);
+  }
+
+  .dex-screen {
+    background-color: #000;
+    color: var(--color-neutral-50);
+    background-image: radial-gradient(
+      rgb(255 255 255 / 0.055) 1px,
+      transparent 1.5px
+    );
+    background-size: 8px 8px;
+  }
+}
+
+.dex-sprite {
+  filter: drop-shadow(6px 6px 0 rgb(20 184 166 / 0.45));
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+.scroll-area {
+  scroll-behavior: smooth;
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-teal-500) transparent;
+}
+
+.scroll-area::-webkit-scrollbar {
+  width: 8px;
+}
+
+.scroll-area::-webkit-scrollbar-thumb {
+  background: var(--color-teal-500);
+}
+
+.scroll-area::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html,
+  .scroll-area {
+    scroll-behavior: auto;
+  }
+  .pressable:active {
+    transform: none;
+  }
+}
+
+@keyframes rise-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .anim-rise {
+    animation: rise-in 300ms cubic-bezier(0.2, 0, 0, 1) both;
+  }
+  .anim-rise-2 {
+    animation: rise-in 300ms cubic-bezier(0.2, 0, 0, 1) 100ms both;
+  }
+  [role="tabpanel"][data-state="active"] {
+    animation: fade-in 200ms ease-out both;
+  }
 }
 
 :root {
