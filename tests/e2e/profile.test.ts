@@ -8,7 +8,7 @@ describe("Pokemon Profile", { timeout: 10000 }, async () => {
     const page = await createPage("/pokemon/pikachu");
 
     expect(await page.getByTestId("profile").isVisible()).toBeTruthy();
-    expect(await page.getByTestId("moves").isVisible()).toBeTruthy();
+    expect(await page.getByTestId("locations").isVisible()).toBeTruthy();
   });
 
   it(
@@ -30,6 +30,9 @@ describe("Pokemon Profile", { timeout: 10000 }, async () => {
 
       expect(await profile.isVisible()).toBeTruthy();
       expect(await page.getByTestId("locations").isVisible()).toBeTruthy();
+
+      // Switch to the Moves tab and assert it becomes visible.
+      await page.getByRole("tab", { name: "Moves" }).click();
       expect(await page.getByTestId("moves").isVisible()).toBeTruthy();
     },
   );
