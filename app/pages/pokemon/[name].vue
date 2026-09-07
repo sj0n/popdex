@@ -18,12 +18,15 @@ const {
   profileData,
   profileStatus,
   profileError,
+  refreshProfile,
   locationsData,
   locationsStatus,
   locationsError,
+  refreshLocations,
   movesData,
   movesStatus,
   movesError,
+  refreshMoves,
 } = usePokemonData(() => pokemonName.value);
 </script>
 
@@ -32,15 +35,20 @@ const {
     :data="profileData"
     :status="profileStatus"
     :error="profileError"
+    :refresh="refreshProfile"
   />
   <template
     v-if="profileStatus !== 'error' || profileError?.statusCode !== 404"
   >
-    <PokemonSpawn
-      :data="locationsData"
-      :status="locationsStatus"
-      :error="locationsError"
+    <PokemonDataPanel
+      :locations="locationsData"
+      :locations-status="locationsStatus"
+      :locations-error="locationsError"
+      :refresh-locations="refreshLocations"
+      :moves="movesData"
+      :moves-status="movesStatus"
+      :moves-error="movesError"
+      :refresh-moves="refreshMoves"
     />
-    <PokemonMoves :data="movesData" :status="movesStatus" :error="movesError" />
   </template>
 </template>

@@ -8,8 +8,8 @@ import type {
  * Fires the three Pokémon data fetches for a given name.
  *
  * Each fetch is an independent `useLazyFetch`, so the profile, locations,
- * and moves sections render progressively as their data resolves — there
- * is no shared blocking. The page consumes the returned refs and passes
+ * and moves sections render progressively as their data resolves. There is
+ * no shared blocking. The page consumes the returned refs and passes
  * them down as props, making the presentational components fetch-agnostic.
  */
 export function usePokemonData(name: () => string) {
@@ -25,11 +25,14 @@ export function usePokemonData(name: () => string) {
     profileData: profile.data,
     profileStatus: profile.status,
     profileError: profile.error,
+    refreshProfile: profile.refresh,
     locationsData: locations.data,
     locationsStatus: locations.status,
     locationsError: locations.error,
+    refreshLocations: locations.refresh,
     movesData: moves.data,
     movesStatus: moves.status,
     movesError: moves.error,
+    refreshMoves: moves.refresh,
   };
 }
